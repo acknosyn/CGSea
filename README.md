@@ -5,4 +5,4 @@ Final group project for COMP308 - Introduction to Computer Graphics.
 
 Swarming Fish - Francesco Badraun  
 Water Caustics - Alex Bartley  
-Terrain - Jun Burden
+Terrain and structure generation - Jun Burden
