@@ -3,6 +3,6 @@ Underwater scene with swarming fish, procedural terrain and water caustics. This
 
 Final group project for COMP308 - Introduction to Computer Graphics.
 
-Swarming Fish - Francesco Badraun  
+Fish Boids - Francesco Badraun  
 Water Caustics - Alex Bartley  
 Terrain and structure generation - Jun Burden
