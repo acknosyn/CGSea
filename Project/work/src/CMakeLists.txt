@@ -6,12 +6,14 @@
 # TODO list your header files (.hpp) here
 SET(headers
 	"comp308.hpp"
+	"terrain.hpp"
 )
 
 
 # TODO list your source files (.cpp) here
 SET(sources
 	"main.cpp"
+	"terrain.cpp"
 )
 
 # Add executable target and link libraries
