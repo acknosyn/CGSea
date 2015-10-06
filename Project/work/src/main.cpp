@@ -18,6 +18,7 @@
 #include <string>
 
 #include "comp308.hpp"
+#include "terrain.hpp"
 
 using namespace std;
 using namespace comp308;
@@ -28,6 +29,11 @@ using namespace comp308;
 GLuint g_winWidth  = 640;
 GLuint g_winHeight = 480;
 GLuint g_mainWindow = 0;
+
+
+// Terrain loader and drawer
+//
+Terrain *g_terrain = nullptr;
 
 
 // Projection values
@@ -107,7 +113,7 @@ void draw() {
 
 
 	// Render 
-
+	g_terrain->renderTerrain();
 
 	// Disable flags for cleanup (optional)
 	glDisable(GL_DEPTH_TEST);
@@ -251,6 +257,9 @@ int main(int argc, char **argv) {
 
 	// Create a light on the camera
 	initLight();
+
+	// Create terrain
+	g_terrain = new Terrain("hi");
 
 	// Loop required by OpenGL
 	// This will not return until we tell OpenGL to finish

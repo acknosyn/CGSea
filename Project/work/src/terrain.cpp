@@ -32,5 +32,5 @@ Terrain::Terrain(string filename) {
 }
 
 void Terrain::renderTerrain() {
-
+	
 }
