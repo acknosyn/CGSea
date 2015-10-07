@@ -53,7 +53,6 @@ float g_xRotation = 0;
 float g_xPos = 0;
 float g_yPos = 0;
 float g_zPos = -20;
-float g_zoomFactor = 1.0;
 
 
 // Sets up where and what the light is
@@ -208,14 +207,6 @@ void mouseCallback(int button, int state, int x, int y) {
 			g_mouseDown = (state==0);
 			g_mousePos = vec2(x, y);
 			break;
-
-		case 3: //scroll foward/up
-			g_zoomFactor /= 1.1;
-			break;
-
-		case 4: //scroll back/down
-			g_zoomFactor *= 1.1;
-			break;
 	}
 }
 
@@ -231,6 +222,11 @@ void mouseMotionCallback(int x, int y) {
 		g_mousePos = vec2(x,y);
 		g_yRotation += 0.3 * dif.x;
 		g_xRotation += 0.3 * dif.y;
+	}
+	if(g_xRotation < -90) {
+		g_xRotation = -90;
+	} else if(g_xRotation > 90) {
+		g_xRotation = 90;
 	}
 }
 
