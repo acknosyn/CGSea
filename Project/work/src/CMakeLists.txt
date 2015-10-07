@@ -7,6 +7,7 @@
 SET(headers
 	"comp308.hpp"
 	"terrain.hpp"
+	"geometry.hpp"
 )
 
 
@@ -14,6 +15,7 @@ SET(headers
 SET(sources
 	"main.cpp"
 	"terrain.cpp"
+	"geometry.cpp"
 )
 
 # Add executable target and link libraries
