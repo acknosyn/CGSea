@@ -23,6 +23,7 @@
 using namespace std;
 using namespace comp308;
 
+#define PI 3.14159265
 
 // Global variables
 // 
@@ -49,6 +50,9 @@ bool g_mouseDown = false;
 vec2 g_mousePos;
 float g_yRotation = 0;
 float g_xRotation = 0;
+float g_xPos = 0;
+float g_yPos = 0;
+float g_zPos = -20;
 float g_zoomFactor = 1.0;
 
 
@@ -83,9 +87,9 @@ void setUpCamera() {
 	glLoadIdentity();
 
 	// Load camera transforms
-	glTranslatef(0, 0, -5 * g_zoomFactor);
 	glRotatef(g_xRotation, 1, 0, 0);
 	glRotatef(g_yRotation, 0, 1, 0);
+	glTranslatef(g_xPos, g_yPos, g_zPos);
 }
 
 
@@ -154,6 +158,30 @@ void keyboardCallback(unsigned char key, int x, int y) {
 	 cout << "Keyboard Callback :: key=" << key << ", x,y=(" << x << "," << y << ")" << endl;
 	// YOUR CODE GOES HERE
 	// ...
+	switch(key){
+
+		case 'w': //left mouse button
+			g_xPos -= cos(g_xRotation*PI/180)*sin(g_yRotation*PI/180);
+			g_yPos += sin(g_xRotation*PI/180);
+			g_zPos += cos(g_xRotation*PI/180)*cos(g_yRotation*PI/180);
+			break;
+
+		case 'a': //left mouse button
+			g_xPos += cos(g_yRotation*PI/180);
+			g_zPos += sin(g_yRotation*PI/180);
+			break;
+
+		case 's': //scroll foward/up
+			g_xPos += cos(g_xRotation*PI/180)*sin(g_yRotation*PI/180);
+			g_yPos -= sin(g_xRotation*PI/180);
+			g_zPos -= cos(g_xRotation*PI/180)*cos(g_yRotation*PI/180);
+			break;
+
+		case 'd': //scroll foward/up
+			g_xPos -= cos(g_yRotation*PI/180);
+			g_zPos -= sin(g_yRotation*PI/180);
+			break;
+	}
 }
 
 
