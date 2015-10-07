@@ -24,7 +24,7 @@ Terrain::Terrain() {
 
 Terrain::Terrain(string filename) {
 	cout << filename << endl;
-	g_geometry = new Geometry("work/assets/dragon.obj");
+	g_geometry = new Geometry(filename);
 
 }
 

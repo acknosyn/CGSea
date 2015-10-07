@@ -212,8 +212,8 @@ void mouseMotionCallback(int x, int y) {
 // 
 int main(int argc, char **argv) {
 
-	if(argc != 1){
-		cout << "No arguments expected" << endl;
+	if(argc > 2){
+		cout << "Too many arguments" << endl;
 		exit(EXIT_FAILURE);
 	}
 
@@ -259,7 +259,11 @@ int main(int argc, char **argv) {
 	initLight();
 
 	// Create terrain
-	g_terrain = new Terrain("hi");
+	if(argc == 2) {
+		g_terrain = new Terrain(argv[1]);
+	} else {
+		g_terrain = new Terrain();
+	}
 
 	// Loop required by OpenGL
 	// This will not return until we tell OpenGL to finish
