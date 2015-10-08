@@ -19,21 +19,48 @@ using namespace std;
 using namespace comp308;
 
 Terrain::Terrain() {
-	//g_geometry = new Geometry("work/assets/dragon.obj");
+	mcPoints = new vec4[(nX+1)*(nY+1)*(nZ+1)];
+	vec3 stepSize((MAXX-MINX)/nX, (MAXY-MINY)/nY, (MAXZ-MINZ)/nZ);
+	for(int i=0; i < nX+1; i++) {
+		for(int j=0; j < nY+1; j++) {
+			for(int k=0; k < nZ+1; k++) {
+				vec4 vert(MINX+i*stepSize.x, MINY+j*stepSize.y, MINZ+k*stepSize.z, 0);
+				vert.w = calculateDensity(vert);
+				mcPoints[i*(nY+1)*(nZ+1) + j*(nZ+1) + k] = vert;
+			}
+		}
+	}
+	// Convert strut to geometry types
+	vector<vec3> geoPoints;
+	vector<triangle> geoTriangles;
+	//runs Marching Cubes
+	Triangles = MarchingCubesLinear(nX, nY, nZ, minValue, mcPoints, numOfTriangles);
+	for(int i = 0; i<numOfTriangles; ++i) {
+		geoPoints.push_back(Triangles[i].p[0]);
+		geoPoints.push_back(Triangles[i].p[1]);
+		geoPoints.push_back(Triangles[i].p[2]);
+		triangle t; 
+		t.v[0].p = geoPoints.size()-3;
+		t.v[1].p = geoPoints.size()-2;
+		t.v[2].p = geoPoints.size()-1;
+		geoTriangles.push_back(t);
+	}
+	g_geometry = new Geometry(geoPoints, geoTriangles);
 }
 
 Terrain::Terrain(string filename) {
 	cout << filename << endl;
 	g_geometry = new Geometry(filename);
+}
 
+float Terrain::calculateDensity(vec4 coordinates) {
+	// Ball
+	//return coordinates.x*coordinates.x + coordinates.y*coordinates.y + coordinates.z*coordinates.z -50 - 0.0003;
+	// Random terrain
+	return 2*sin(coordinates.x/4) + 0.1*sin(coordinates.x) + 0.1*sin(coordinates.x/3) + 0.1*sin(coordinates.x/3.5 + 15) + 0.2*sin(coordinates.z) + sin(coordinates.z/5)  -cos(coordinates.x/3.4 + coordinates.z/4.3) - coordinates.y - 5.003;
+	// Slope
+	//return coordinates.x*0.2-coordinates.y - 0.0003;
 }
 
 void Terrain::renderTerrain() {
-	glBegin(GL_TRIANGLES);
-	  glColor3f(0.5, 0.5, 0.5);
-  	glVertex3f(-10.0, 0, 10.0);
-    glVertex3f(0, 0, -10.0);
-    glVertex3f(10.0, 0, 10.0);
-  glEnd();
-	//g_geometry->renderGeometry();
-}
+	g_geometry->renderGeometry();}

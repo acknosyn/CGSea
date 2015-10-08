@@ -8,6 +8,8 @@ SET(headers
 	"comp308.hpp"
 	"terrain.hpp"
 	"geometry.hpp"
+	"marchingCubes.hpp"
+	"mcTable.hpp"
 	"fish.hpp"
 	"school.hpp"
 )
@@ -18,6 +20,7 @@ SET(sources
 	"main.cpp"
 	"terrain.cpp"
 	"geometry.cpp"
+	"marchingCubes.cpp"
 	"fish.cpp"
 	"school.cpp"
 )
