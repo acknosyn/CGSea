@@ -6,8 +6,6 @@
 
 #include <cmath>
 #include <iostream> // input/output streams
-#include <fstream>  // file streams
-#include <sstream>  // string streams
 #include <string>
 #include <stdexcept>
 #include <vector>
