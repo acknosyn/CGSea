@@ -13,9 +13,12 @@
 
 #include "comp308.hpp"
 
+using namespace comp308;
+
 class Fish {
 private:
-	// add private fields here
+	vec3 position;
+	vec3 velocity;
 
 public:
 	Fish();
