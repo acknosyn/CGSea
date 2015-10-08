@@ -19,7 +19,7 @@ using namespace std;
 using namespace comp308;
 
 Terrain::Terrain() {
-	g_geometry = new Geometry("work/assets/dragon.obj");
+	//g_geometry = new Geometry("work/assets/dragon.obj");
 }
 
 Terrain::Terrain(string filename) {
@@ -29,5 +29,11 @@ Terrain::Terrain(string filename) {
 }
 
 void Terrain::renderTerrain() {
-	g_geometry->renderGeometry();
+	glBegin(GL_TRIANGLES);
+	  glColor3f(0.5, 0.5, 0.5);
+  	glVertex3f(-10.0, 0, 10.0);
+    glVertex3f(0, 0, -10.0);
+    glVertex3f(10.0, 0, 10.0);
+  glEnd();
+	//g_geometry->renderGeometry();
 }
