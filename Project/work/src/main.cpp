@@ -44,6 +44,12 @@ Terrain *g_terrain = nullptr;
 School *g_school = nullptr;
 
 
+// toggle values
+bool g_terrainActive = true;
+bool g_fishActive = true;
+bool g_causticsActive = true;
+
+
 // Projection values
 // 
 float g_fovy = 20.0;
@@ -123,9 +129,11 @@ void draw() {
 
 
 	// Render 
-	g_terrain->renderTerrain();
+	if (g_terrainActive) g_terrain->renderTerrain();
 
-	g_school->renderSchool();
+	if (g_fishActive) g_school->renderSchool();
+
+	if (g_causticsActive) // render caustics
 
 	// Disable flags for cleanup (optional)
 	glDisable(GL_DEPTH_TEST);
@@ -188,6 +196,18 @@ void keyboardCallback(unsigned char key, int x, int y) {
 		case 'd': //move right
 			g_xPos -= cos(g_yRotation*PI/180);
 			g_zPos -= sin(g_yRotation*PI/180);
+			break;
+
+		case 't': //toggle terrain
+			g_terrainActive = !g_terrainActive;
+			break;
+
+		case 'f': //toggle fish
+			g_fishActive = !g_fishActive;
+			break;
+
+		case 'c': //toggle caustics
+			g_causticsActive = !g_causticsActive;
 			break;
 	}
 }
