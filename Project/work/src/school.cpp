@@ -13,20 +13,16 @@
 #include <vector>
 
 #include "comp308.hpp"
-#include "fish.hpp"
+#include "school.hpp"
 
 using namespace std;
 using namespace comp308;
 
-Fish::Fish() {
-	// init
+School::School() {
+	Fish first = Fish();
+	schoolOfFish[1] = {first};
 }
 
-void Fish::renderFish() {
-
-	glPushMatrix(); {
-		glColor3f(0.1, 0.2, 0.5);
-		glutSolidSphere(2, 10, 10);
-	}
-	glPopMatrix();
+void School::renderSchool() {
+	schoolOfFish[0].renderFish();
 }

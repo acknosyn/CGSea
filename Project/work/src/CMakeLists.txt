@@ -9,6 +9,7 @@ SET(headers
 	"terrain.hpp"
 	"geometry.hpp"
 	"fish.hpp"
+	"school.hpp"
 )
 
 
@@ -18,6 +19,7 @@ SET(sources
 	"terrain.cpp"
 	"geometry.cpp"
 	"fish.cpp"
+	"school.cpp"
 )
 
 # Add executable target and link libraries
