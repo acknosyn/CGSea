@@ -46,7 +46,7 @@ float g_zfar = 1000.0;
 
 // Mouse controlled Camera values
 //
-bool g_mouseDown = false;
+bool g_lMouseDown = false;
 vec2 g_mousePos;
 float g_yRotation = 0;
 float g_xRotation = 0;
@@ -159,24 +159,24 @@ void keyboardCallback(unsigned char key, int x, int y) {
 	// ...
 	switch(key){
 
-		case 'w': //left mouse button
+		case 'w': //move forward
 			g_xPos -= cos(g_xRotation*PI/180)*sin(g_yRotation*PI/180);
 			g_yPos += sin(g_xRotation*PI/180);
 			g_zPos += cos(g_xRotation*PI/180)*cos(g_yRotation*PI/180);
 			break;
 
-		case 'a': //left mouse button
+		case 'a': //move left
 			g_xPos += cos(g_yRotation*PI/180);
 			g_zPos += sin(g_yRotation*PI/180);
 			break;
 
-		case 's': //scroll foward/up
+		case 's': //move backward
 			g_xPos += cos(g_xRotation*PI/180)*sin(g_yRotation*PI/180);
 			g_yPos -= sin(g_xRotation*PI/180);
 			g_zPos -= cos(g_xRotation*PI/180)*cos(g_yRotation*PI/180);
 			break;
 
-		case 'd': //scroll foward/up
+		case 'd': //move right
 			g_xPos -= cos(g_yRotation*PI/180);
 			g_zPos -= sin(g_yRotation*PI/180);
 			break;
@@ -204,8 +204,18 @@ void mouseCallback(int button, int state, int x, int y) {
 	switch(button){
 
 		case 0: //left mouse button
-			g_mouseDown = (state==0);
+			g_lMouseDown = (state==0);
 			g_mousePos = vec2(x, y);
+			break;
+		case 3: //scroll foward/up
+			g_xPos -= cos(g_xRotation*PI/180)*sin(g_yRotation*PI/180);
+			g_yPos += sin(g_xRotation*PI/180);
+			g_zPos += cos(g_xRotation*PI/180)*cos(g_yRotation*PI/180);
+			break;
+		case 4: //scroll back/down
+			g_xPos += cos(g_xRotation*PI/180)*sin(g_yRotation*PI/180);
+			g_yPos -= sin(g_xRotation*PI/180);
+			g_zPos -= cos(g_xRotation*PI/180)*cos(g_yRotation*PI/180);
 			break;
 	}
 }
@@ -217,7 +227,7 @@ void mouseCallback(int button, int state, int x, int y) {
 // 
 void mouseMotionCallback(int x, int y) {
 	cout << "Mouse Motion Callback :: (" << x << "," << y << ")" << endl;
-	if (g_mouseDown) {
+	if (g_lMouseDown) {
 		vec2 dif = vec2(x,y) - g_mousePos;
 		g_mousePos = vec2(x,y);
 		g_yRotation += 0.3 * dif.x;
