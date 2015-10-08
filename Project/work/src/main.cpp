@@ -19,6 +19,7 @@
 
 #include "comp308.hpp"
 #include "terrain.hpp"
+#include "school.hpp"
 
 using namespace std;
 using namespace comp308;
@@ -35,6 +36,12 @@ GLuint g_mainWindow = 0;
 // Terrain loader and drawer
 //
 Terrain *g_terrain = nullptr;
+
+
+// Fishy stuff
+//
+// School of fish
+School *g_school = nullptr;
 
 
 // Projection values
@@ -117,6 +124,8 @@ void draw() {
 
 	// Render 
 	g_terrain->renderTerrain();
+
+	g_school->renderSchool();
 
 	// Disable flags for cleanup (optional)
 	glDisable(GL_DEPTH_TEST);
@@ -298,6 +307,9 @@ int main(int argc, char **argv) {
 	} else {
 		g_terrain = new Terrain();
 	}
+
+	// Fishy stuff
+	g_school = new School();
 
 	// Loop required by OpenGL
 	// This will not return until we tell OpenGL to finish
