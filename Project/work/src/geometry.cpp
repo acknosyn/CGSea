@@ -29,6 +29,23 @@ Geometry::Geometry(string filename) {
 	}
 }
 
+Geometry::Geometry(vector<vec3> points, vector<triangle> triangles) {
+	// Make sure our geometry information is cleared
+	m_points.clear();
+	m_uvs.clear();
+	m_normals.clear();
+	m_triangles.clear();
+
+	m_points = points;
+	m_triangles = triangles;
+	cout << "points size: " << m_points.size() << endl;
+	cout << "triangles size: " << m_triangles.size() << endl;
+	createNormals();
+	cout << "normals size: " << m_normals.size() << endl;
+	if (m_triangles.size() > 0) {
+		createDisplayListPoly();
+	}
+}
 
 void Geometry::readOBJ(string filename) {
 
