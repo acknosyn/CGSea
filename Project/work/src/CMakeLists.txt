@@ -8,6 +8,7 @@ SET(headers
 	"comp308.hpp"
 	"terrain.hpp"
 	"geometry.hpp"
+	"fish.hpp"
 )
 
 
@@ -16,6 +17,7 @@ SET(sources
 	"main.cpp"
 	"terrain.cpp"
 	"geometry.cpp"
+	"fish.cpp"
 )
 
 # Add executable target and link libraries
