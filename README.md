@@ -20,6 +20,4 @@ Scroll - Moves forward/backward
 T - Toggles terrain on/off  
 F - Toggles fish on/off  
 C - Toggles caustics on/off  
-P - Pauses/plays fish simulation  
-
-Test commit
+P - Pauses/plays fish simulation
