@@ -54,7 +54,11 @@ float g_zfar = 1000.0;
 // Mouse controlled Camera values
 //
 bool g_lMouseDown = false;
-vec2 g_mousePos;
+vec2 g_lMousePos;
+bool g_rMouseDown = false;
+vec2 g_rMousePos;
+float g_yWorldRotation = 0;
+float g_xWorldRotation = 0;
 float g_yRotation = 0;
 float g_xRotation = 0;
 float g_xPos = 0;
@@ -96,6 +100,8 @@ void setUpCamera() {
 	glRotatef(g_xRotation, 1, 0, 0);
 	glRotatef(g_yRotation, 0, 1, 0);
 	glTranslatef(g_xPos, g_yPos, g_zPos);
+	glRotatef(g_xWorldRotation, 1, 0, 0);
+	glRotatef(g_yWorldRotation, 0, 1, 0);
 }
 
 
@@ -214,7 +220,11 @@ void mouseCallback(int button, int state, int x, int y) {
 
 		case 0: //left mouse button
 			g_lMouseDown = (state==0);
-			g_mousePos = vec2(x, y);
+			g_lMousePos = vec2(x, y);
+			break;
+		case 2: //left mouse button
+			g_rMouseDown = (state==0);
+			g_rMousePos = vec2(x, y);
 			break;
 		case 3: //scroll foward/up
 			g_xPos -= cos(g_xRotation*PI/180)*sin(g_yRotation*PI/180);
@@ -237,10 +247,16 @@ void mouseCallback(int button, int state, int x, int y) {
 void mouseMotionCallback(int x, int y) {
 	cout << "Mouse Motion Callback :: (" << x << "," << y << ")" << endl;
 	if (g_lMouseDown) {
-		vec2 dif = vec2(x,y) - g_mousePos;
-		g_mousePos = vec2(x,y);
+		vec2 dif = vec2(x,y) - g_lMousePos;
+		g_lMousePos = vec2(x,y);
 		g_yRotation += 0.3 * dif.x;
 		g_xRotation += 0.3 * dif.y;
+	}
+	if (g_rMouseDown) {
+		vec2 dif = vec2(x,y) - g_rMousePos;
+		g_rMousePos = vec2(x,y);
+		g_yWorldRotation += 0.3 * dif.x;
+		g_xWorldRotation += 0.3 * dif.y;
 	}
 	if(g_xRotation < -90) {
 		g_xRotation = -90;
