@@ -137,7 +137,9 @@ void draw() {
 	// Render 
 	if (g_terrainActive) g_terrain->renderTerrain();
 
-	if (g_fishActive) g_school->renderSchool();
+	if (g_fishActive) {
+		g_school->renderSchool();
+	}
 
 	if (g_causticsActive) // render caustics
 
@@ -321,6 +323,15 @@ int main(int argc, char **argv) {
 	cout << "Using OpenGL " << glGetString(GL_VERSION) << endl;
 	cout << "Using GLEW " << glewGetString(GLEW_VERSION) << endl;
 
+	// Create terrain
+	if(argc == 2) {
+		g_terrain = new Terrain(argv[1]);
+	} else {
+		g_terrain = new Terrain();
+	}
+
+	// Fishy stuff
+	g_school = new School();
 
 	// Register functions for callback
 	glutDisplayFunc(draw);
@@ -333,19 +344,9 @@ int main(int argc, char **argv) {
 	glutMotionFunc(mouseMotionCallback);
 
 
-
 	// Create a light on the camera
 	initLight();
 
-	// Create terrain
-	if(argc == 2) {
-		g_terrain = new Terrain(argv[1]);
-	} else {
-		g_terrain = new Terrain();
-	}
-
-	// Fishy stuff
-	g_school = new School();
 
 	// Loop required by OpenGL
 	// This will not return until we tell OpenGL to finish

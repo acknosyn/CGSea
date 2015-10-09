@@ -16,10 +16,15 @@
 
 class School {
 private:
-	Fish schoolOfFish [1];
+	int fishAmount = 10;
+	Fish schoolOfFish [10];
+	int sphereRadius = 10;
 
 public:
 	School();
 
 	void renderSchool();
+	void renderSphere();
+
+	void initialisePositions();
 };

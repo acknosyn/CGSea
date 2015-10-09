@@ -13,18 +13,13 @@
 
 #include "comp308.hpp"
 
-struct fishProperties {
-
-	comp308::vec3 position;
-	comp308::vec3 velocity;
-
-};
-
 class Fish {
 private:
-	fishProperties prop;
+	comp308::vec3 position;
+	comp308::vec3 velocity;
 public:
 	Fish();
+	Fish(comp308::vec3);
 
 	void renderFish();
 };
