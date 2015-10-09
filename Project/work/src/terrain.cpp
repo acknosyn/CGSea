@@ -53,13 +53,22 @@ Terrain::Terrain(string filename) {
 	g_geometry = new Geometry(filename);
 }
 
-float Terrain::calculateDensity(vec4 coordinates) {
+float Terrain::calculateDensity(vec4 coords) {
+	Perlin p;
+	float density = -coords.y;
+	density += p.noise(coords.x, coords.y, coords.z) - 0.0003;
+	density += p.noise(coords.x*0.403, coords.y*0.403, coords.z*0.403)*2.5;  
+	density += p.noise(coords.x*0.196, coords.y*0.196, coords.z*0.196)*5.0;  
+	density += p.noise(coords.x*0.101, coords.y*0.101, coords.z*0.101)*10.0;
+	return density;
+
+
 	// Ball
-	//return coordinates.x*coordinates.x + coordinates.y*coordinates.y + coordinates.z*coordinates.z -50 - 0.0003;
+	//return coords.x*coords.x + coords.y*coords.y + coords.z*coords.z -50 - 0.0003;
 	// Random terrain
-	return 2*sin(coordinates.x/4) + 0.1*sin(coordinates.x) + 0.1*sin(coordinates.x/3) + 0.1*sin(coordinates.x/3.5 + 15) + 0.2*sin(coordinates.z) + sin(coordinates.z/5)  -cos(coordinates.x/3.4 + coordinates.z/4.3) - coordinates.y - 5.003;
+	//return 2*sin(coords.x/4) + 0.1*sin(coords.x) + 0.1*sin(coords.x/3) + 0.1*sin(coords.x/3.5 + 15) + 0.2*sin(coords.z) + sin(coords.z/5)  -cos(coords.x/3.4 + coords.z/4.3) - coords.y - 5.003;
 	// Slope
-	//return coordinates.x*0.2-coordinates.y - 0.0003;
+	//return coords.x*0.2-coords.y - 0.0003;
 }
 
 void Terrain::renderTerrain() {
