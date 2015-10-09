@@ -153,9 +153,15 @@ void Geometry::createNormals() {
 	  face_normals.push_back(normalize(cross(vector1, vector2)));
 	  
 	// for each vertex in triangle, add triangle index to list under array of points
-	  triangles_which_intersect_point[m_triangles[i].v[0].p].push_back(i);
-	  triangles_which_intersect_point[m_triangles[i].v[1].p].push_back(i);
-	  triangles_which_intersect_point[m_triangles[i].v[2].p].push_back(i);
+	  for (int j=0; j<3; ++j) {
+	    for(int k=0; k<m_points.size();++k){
+	      if(0.01 > abs(m_points[m_triangles[i].v[j].p].x - m_points[k].x) &&
+		 0.01 > abs(m_points[m_triangles[i].v[j].p].y - m_points[k].y) &&
+		 0.01 > abs(m_points[m_triangles[i].v[j].p].z - m_points[k].z)) {
+		triangles_which_intersect_point[k].push_back(i);
+	      }
+	    }
+	  }
 	//     now you have an array of lists, the index relates to the index of a point,
 	//     and the list os of the indexes of the triangles which intersect this point
 	}
@@ -219,5 +225,6 @@ void Geometry::createDisplayListPoly() {
 
 void Geometry::renderGeometry() {
 	glShadeModel(GL_SMOOTH);
+	glColor3f(173.0f/255.0f,177.0f/255.0f,157.0f/255.0f);
 	glCallList(m_displayListPoly);
 }

@@ -119,7 +119,7 @@ void draw() {
 	setUpCamera();
 
 	// Black background
-	glClearColor(0.0f,0.0f,0.0f,1.0f);
+	glClearColor(0.04705f,0.25098f,0.34902f,1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Enable flags for normal rendering
