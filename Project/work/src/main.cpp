@@ -352,5 +352,7 @@ int main(int argc, char **argv) {
 	glutMainLoop();
 
 	// Don't forget to delete all pointers that we made
+	delete g_terrain;
+	delete g_school;
 	return 0;
 }
