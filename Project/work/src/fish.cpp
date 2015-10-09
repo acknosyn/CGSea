@@ -17,8 +17,13 @@ using namespace std;
 using namespace comp308;
 
 Fish::Fish() {
-	prop.position = vec3(0, 1, 0);
-	prop.velocity = vec3(0, 0, 0);
+	position = vec3(0, 0, 0);
+	velocity = vec3(0, 0, 0);
+}
+
+Fish::Fish(vec3 pos) {
+	position = pos;
+	velocity = vec3(0, 0, 0);
 }
 
 void Fish::renderFish() {
@@ -28,8 +33,8 @@ void Fish::renderFish() {
 		glColor3f(0.3, 0.4, 0.8);
 
 		// orient fish to it's position
-		float angle = degrees(acos(dot(vec3::k(), prop.position)));
-		vec3 axis = cross(vec3::k(), prop.position);
+		float angle = degrees(acos(dot(vec3::k(), position)));
+		vec3 axis = cross(vec3::k(), position);
 
 		glRotatef(angle, axis.x, axis.y, axis.z);
 

@@ -137,7 +137,9 @@ void draw() {
 	// Render 
 	if (g_terrainActive) g_terrain->renderTerrain();
 
-	if (g_fishActive) g_school->renderSchool();
+	if (g_fishActive) {
+		g_school->renderSchool();
+	}
 
 	if (g_causticsActive) // render caustics
 
