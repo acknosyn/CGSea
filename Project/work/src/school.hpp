@@ -22,9 +22,10 @@ private:
 public:
 	School();
 
+	float sphereRadius = 10.0;
+
 	void renderSchool();
 	void renderSphere();
 
 	void initialisePositions();
-	float sphereRadius = 10.0;
 };

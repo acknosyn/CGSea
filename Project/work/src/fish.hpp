@@ -20,6 +20,8 @@ private:
 public:
 	Fish();
 
+	float fishLength = 1.0;
+
 	void renderFish();
 	void setPosition(comp308::vec3);
 	void setVelocity(comp308::vec3);

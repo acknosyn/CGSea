@@ -42,7 +42,7 @@ void Fish::renderFish() {
 		glRotatef(angle, axis.x, axis.y, axis.z);
 
 		// render geometry
-		glutSolidCone(0.5, 1, 6, 5);
+		glutSolidCone(0.5, fishLength, 6, 5);
 	}
 	glPopMatrix();
 }

@@ -14,6 +14,7 @@
 
 #include "comp308.hpp"
 #include "school.hpp"
+#include "fish.hpp"
 
 using namespace std;
 using namespace comp308;
@@ -27,32 +28,32 @@ School::School() {
 		schoolOfFish.push_back(fish);
 	}
 
-	// place fish around scene
 	srand (static_cast <unsigned> (time(0))); // seed random number
-	initialisePositions();
+	initialisePositions(); // place fish around scene
 }
 
 void School::renderSchool() {
+	// render every fish
 	for(std::vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
     	it->renderFish();
-    	//cout<<it->getPos().x<<" "<<it->getPos().y<<" "<<it->getPos().z<<"\n"<<endl;
 	}
 	
+	// render bounds
 	renderSphere();
 }
 
 void School::renderSphere() {
 	glPushMatrix(); {
-		glColor3f(0.3, 0.8, 0.3);
+		glColor4f(0.3, 0.8, 0.3, 0.5); // transparent green
 		glutWireSphere(sphereRadius, 50, 50);
 	} glPopMatrix();
 }
 
 void School::initialisePositions() {
-	// places fish randomly outside of the sphere (Within a small distance)
+	// places fish randomly on the surface of the sphere
 
 	// generate random x,y,z values just outside the sphere
-	float high = 1.0 + sphereRadius;
+	float high = sphereRadius;
 	float low = -high;
 
 	for(std::vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
@@ -66,7 +67,7 @@ void School::initialisePositions() {
 
 		newPos /= length(newPos); // normalised
 
-		newPos *= sphereRadius;
+		newPos *= sphereRadius + schoolOfFish.front().fishLength;
 
 	    it->setPosition(newPos);
 
