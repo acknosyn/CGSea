@@ -10,6 +10,7 @@ SET(headers
 	"geometry.hpp"
 	"marchingCubes.hpp"
 	"mcTable.hpp"
+	"perlin.hpp"
 	"fish.hpp"
 	"school.hpp"
 )
@@ -21,6 +22,7 @@ SET(sources
 	"terrain.cpp"
 	"geometry.cpp"
 	"marchingCubes.cpp"
+	"perlin.cpp"
 	"fish.cpp"
 	"school.cpp"
 )

@@ -14,6 +14,7 @@
 #include "comp308.hpp"
 #include "geometry.hpp"
 #include "marchingCubes.hpp"
+#include "perlin.hpp"
 
 //boundary values for Marching Cubes
 #define MINX -10.0
