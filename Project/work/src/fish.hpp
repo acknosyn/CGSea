@@ -19,7 +19,9 @@ private:
 	comp308::vec3 velocity;
 public:
 	Fish();
-	Fish(comp308::vec3);
 
 	void renderFish();
+	void setPosition(comp308::vec3);
+	void setVelocity(comp308::vec3);
+	comp308::vec3 getPos();
 };

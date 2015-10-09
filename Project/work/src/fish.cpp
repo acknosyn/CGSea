@@ -12,6 +12,7 @@
 
 #include "comp308.hpp"
 #include "fish.hpp"
+#include "school.hpp"
 
 using namespace std;
 using namespace comp308;
@@ -21,20 +22,22 @@ Fish::Fish() {
 	velocity = vec3(0, 0, 0);
 }
 
-Fish::Fish(vec3 pos) {
-	position = pos;
-	velocity = vec3(0, 0, 0);
-}
-
 void Fish::renderFish() {
 
 	glPushMatrix(); {
 		// colour - light blue
 		glColor3f(0.3, 0.4, 0.8);
+		//velocity -= vec3( .001,.001,.001);
+		//position += velocity;
 
-		// orient fish to it's position
-		float angle = degrees(acos(dot(vec3::k(), position)));
-		vec3 axis = cross(vec3::k(), position);
+		// translate to position of fish
+		glTranslatef(position.x, position.y, position.z);
+
+		// orient fish in direction of velocity
+		float angle = degrees(acos(dot(vec3::k(), normalize(velocity))));
+		vec3 axis = cross(vec3::k(), normalize(velocity));
+
+		axis = normalize(axis);
 
 		glRotatef(angle, axis.x, axis.y, axis.z);
 
@@ -42,4 +45,16 @@ void Fish::renderFish() {
 		glutSolidCone(0.5, 1, 6, 5);
 	}
 	glPopMatrix();
+}
+
+void Fish::setPosition(vec3 pos) {
+	position = pos;
+}
+
+void Fish::setVelocity(vec3 vel) {
+	velocity = vel;
+}
+
+vec3 Fish::getPos() {
+	return position;
 }

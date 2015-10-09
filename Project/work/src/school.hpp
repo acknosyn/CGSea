@@ -17,8 +17,7 @@
 class School {
 private:
 	int fishAmount = 10;
-	Fish schoolOfFish [10];
-	int sphereRadius = 10;
+	std::vector<Fish> schoolOfFish;
 
 public:
 	School();
@@ -27,4 +26,5 @@ public:
 	void renderSphere();
 
 	void initialisePositions();
+	float sphereRadius = 10.0;
 };
