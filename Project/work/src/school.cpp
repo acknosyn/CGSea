@@ -18,7 +18,7 @@ using namespace comp308;
 
 School::School() {
 	Fish first = Fish();
-	schoolOfFish[1] = {first};
+	schoolOfFish[0] = {first};
 }
 
 void School::renderSchool() {
