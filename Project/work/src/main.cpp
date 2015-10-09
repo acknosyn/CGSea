@@ -42,6 +42,7 @@ Terrain *g_terrain = nullptr;
 //
 // School of fish
 School *g_school = nullptr;
+bool play = true;
 
 
 // toggle values
@@ -138,7 +139,7 @@ void draw() {
 	if (g_terrainActive) g_terrain->renderTerrain();
 
 	if (g_fishActive) {
-		g_school->renderSchool();
+		g_school->update(play);
 	}
 
 	if (g_causticsActive) // render caustics
@@ -212,6 +213,10 @@ void keyboardCallback(unsigned char key, int x, int y) {
 
 		case 'f': //toggle fish
 			g_fishActive = !g_fishActive;
+			break;
+
+		case 'p': // play/pause fish sim
+			play = !play;
 			break;
 
 		case 'c': //toggle caustics

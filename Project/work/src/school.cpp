@@ -32,6 +32,14 @@ School::School() {
 	initialisePositions(); // place fish around scene
 }
 
+void School::update(bool play) {
+	renderSchool();
+
+	if (play) {
+		// place new positions
+	}
+}
+
 void School::renderSchool() {
 	// render every fish
 	for(std::vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {

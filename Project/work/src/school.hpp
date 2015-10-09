@@ -24,8 +24,10 @@ public:
 
 	float sphereRadius = 10.0;
 
-	void renderSchool();
-	void renderSphere();
+	void update(bool); // run every frame
 
 	void initialisePositions();
+
+	void renderSchool();
+	void renderSphere();
 };
