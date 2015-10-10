@@ -42,7 +42,7 @@ Terrain *g_terrain = nullptr;
 //
 // School of fish
 School *g_school = nullptr;
-bool play = true;
+bool play = false;
 
 
 // toggle values

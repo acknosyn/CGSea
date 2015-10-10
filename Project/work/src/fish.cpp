@@ -25,9 +25,6 @@ Fish::Fish() {
 void Fish::renderFish() {
 
 	glPushMatrix(); {
-		//velocity -= vec3( .001,.001,.001);
-		//position += velocity;
-
 		// translate to position of fish
 		glTranslatef(position.x, position.y, position.z);
 
@@ -54,14 +51,18 @@ void Fish::renderFish() {
 	glPopMatrix();
 }
 
+vec3 Fish::getPosition() {
+	return position;
+}
+
+vec3 Fish::getVelocity() {
+	return velocity;
+}
+
 void Fish::setPosition(vec3 pos) {
 	position = pos;
 }
 
 void Fish::setVelocity(vec3 vel) {
 	velocity = vel;
-}
-
-vec3 Fish::getPos() {
-	return position;
 }

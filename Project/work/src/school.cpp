@@ -88,5 +88,15 @@ void School::initialisePositions() {
 }
 
 void School::moveAllFishToNewPositions() {
-	// update positions
+	// move every fish's position by velocity
+	for (std::vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
+		vec3 pos = it->getPosition();
+		vec3 vel = it->getVelocity();
+
+		//vel -= vec3(.001, .001, .001);
+		pos += vel;
+
+		it->setPosition(pos);
+		it->setVelocity(vel);
+	}
 }

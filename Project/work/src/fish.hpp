@@ -23,7 +23,10 @@ public:
 	float fishLength = 1.0;
 
 	void renderFish();
+
+	comp308::vec3 getPosition();
+	comp308::vec3 getVelocity();
+
 	void setPosition(comp308::vec3);
 	void setVelocity(comp308::vec3);
-	comp308::vec3 getPos();
 };
