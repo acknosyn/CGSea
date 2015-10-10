@@ -35,8 +35,11 @@ School::School() {
 void School::update(bool play) {
 	renderSchool();
 
-	if (play) {
-		// place new positions
+	if (step) {
+		moveAllFishToNewPositions();
+		step = false;
+	} else if (play) {
+		moveAllFishToNewPositions();
 	}
 }
 
@@ -82,4 +85,8 @@ void School::initialisePositions() {
 	    newPos *= 0.01;
 	    it->setVelocity(-newPos);
 	}
+}
+
+void School::moveAllFishToNewPositions() {
+	// update positions
 }

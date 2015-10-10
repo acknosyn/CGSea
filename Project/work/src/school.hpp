@@ -23,11 +23,14 @@ public:
 	School();
 
 	float sphereRadius = 10.0;
+	bool step = false;
 
 	void update(bool); // run every frame
 
-	void initialisePositions();
-
 	void renderSchool();
 	void renderSphere();
+
+	void initialisePositions();
+
+	void moveAllFishToNewPositions();
 };

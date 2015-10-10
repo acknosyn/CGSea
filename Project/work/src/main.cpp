@@ -215,12 +215,16 @@ void keyboardCallback(unsigned char key, int x, int y) {
 			g_fishActive = !g_fishActive;
 			break;
 
+		case 'c': //toggle caustics
+			g_causticsActive = !g_causticsActive;
+			break;
+
 		case 'p': // play/pause fish sim
 			play = !play;
 			break;
 
-		case 'c': //toggle caustics
-			g_causticsActive = !g_causticsActive;
+		case 'o': // step 1 frame through fish sim
+			g_school->step = true;
 			break;
 	}
 }
