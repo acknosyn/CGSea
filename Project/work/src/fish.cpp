@@ -25,8 +25,6 @@ Fish::Fish() {
 void Fish::renderFish() {
 
 	glPushMatrix(); {
-		// colour - light blue
-		glColor3f(0.3, 0.4, 0.8);
 		//velocity -= vec3( .001,.001,.001);
 		//position += velocity;
 
@@ -36,12 +34,21 @@ void Fish::renderFish() {
 		// orient fish in direction of velocity
 		float angle = degrees(acos(dot(vec3::k(), normalize(velocity))));
 		vec3 axis = cross(vec3::k(), normalize(velocity));
-
 		axis = normalize(axis);
 
 		glRotatef(angle, axis.x, axis.y, axis.z);
 
+		// velocity vector arrow
+		glPushMatrix(); {
+			glColor3f(0.9, 0.3, 0.3); // light red
+
+			GLUquadricObj *quadObj = gluNewQuadric();
+			gluCylinder(quadObj, 0.03, 0.03, length(velocity) + fishLength, 10, 10);
+		} 
+		glPopMatrix();
+
 		// render geometry
+		glColor3f(0.3, 0.4, 0.8); // light blue
 		glutSolidCone(0.5, fishLength, 6, 5);
 	}
 	glPopMatrix();

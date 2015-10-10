@@ -22,7 +22,7 @@ private:
 public:
 	School();
 
-	float sphereRadius = 10.0;
+	float sphereRadius = 15.0;
 	bool step = false;
 
 	void update(bool); // run every frame
