@@ -89,14 +89,39 @@ void School::initialisePositions() {
 
 void School::moveAllFishToNewPositions() {
 	// move every fish's position by velocity
-	for (std::vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
+	for (std::vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {		
 		vec3 pos = it->getPosition();
 		vec3 vel = it->getVelocity();
 
-		//vel -= vec3(.001, .001, .001);
 		pos += vel;
 
 		it->setPosition(pos);
 		it->setVelocity(vel);
+
+		// move fish to opposite side of bounds if it goes past bounds
+		if (isBoundsCollided(*it)) {
+			moveFishToOppositeOfBounds(&(*it)); // &(*it) gives function an address ('&') to the dereferenced pointer ('(*it)') which is a pointer
+		}
 	}
+}
+
+bool School::isBoundsCollided(Fish fish) {
+	vec3 position = fish.getPosition();
+	vec3 origin = vec3(0, 0, 0);
+
+	vec3 distanceVector = position - origin;
+	float distance = length(distanceVector);
+
+	// how far is the fish allowed to go from the origin(center)
+	float allowance = sphereRadius + fish.fishLength + 0.001; // 0.001 is so it doesn't collide when in its initialisePositions() position
+
+	if (distance >= allowance) {
+		return true;
+	}
+
+	return false;
+}
+
+void School::moveFishToOppositeOfBounds(Fish* fish) {
+	fish->setPosition(-fish->getPosition()); // negative position is mirrored position (opposite)
 }

@@ -16,7 +16,7 @@
 
 class School {
 private:
-	int fishAmount = 10;
+	int fishAmount = 1;
 	std::vector<Fish> schoolOfFish;
 
 public:
@@ -33,4 +33,7 @@ public:
 	void initialisePositions();
 
 	void moveAllFishToNewPositions();
+
+	bool isBoundsCollided(Fish);
+	void moveFishToOppositeOfBounds(Fish *);
 };
