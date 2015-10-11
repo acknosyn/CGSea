@@ -86,23 +86,47 @@ void School::initialisePositions() {
 	    it->setVelocity(-newPos);
 	}
 }
-
+/*
+Actual boids algorithm
+*/
 void School::moveAllFishToNewPositions() {
-	// move every fish's position by velocity
-	for (std::vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {		
-		vec3 pos = it->getPosition();
-		vec3 vel = it->getVelocity();
 
-		pos += vel;
+	vec3 v1, v2, v3; // the 3 main rules for a boid
 
-		it->setPosition(pos);
-		it->setVelocity(vel);
+	for (std::vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
+
+		Fish *fish = &(*it); // &(*it) is an address ('&') to the dereferenced pointer ('(*it)'), which is a pointer
+
+		v1 = rule1(fish);
+		v2 = rule2(fish);
+		v3 = rule3(fish);
+
+		//b.velocity = b.velocity + v1 + v2 + v3
+		//b.position = b.position + b.velocity
+
+		vec3 velocity = fish->getVelocity() + v1 + v2 + v3;
+		vec3 position = fish->getPosition() + velocity;
+
+		fish->setPosition(position);
+		fish->setVelocity(velocity);
 
 		// move fish to opposite side of bounds if it goes past bounds
 		if (isBoundsCollided(*it)) {
-			moveFishToOppositeOfBounds(&(*it)); // &(*it) gives function an address ('&') to the dereferenced pointer ('(*it)') which is a pointer
+			moveFishToOppositeOfBounds(fish);
 		}
 	}
+}
+
+comp308::vec3 School::rule1(Fish *) {
+	return comp308::vec3();
+}
+
+comp308::vec3 School::rule2(Fish *) {
+	return comp308::vec3();
+}
+
+comp308::vec3 School::rule3(Fish *) {
+	return comp308::vec3();
 }
 
 bool School::isBoundsCollided(Fish fish) {
