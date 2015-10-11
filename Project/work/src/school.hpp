@@ -16,13 +16,13 @@
 
 class School {
 private:
-	int fishAmount = 1;
+	int fishAmount = 10;
 	std::vector<Fish> schoolOfFish;
 
 public:
 	School();
 
-	float sphereRadius = 15.0;
+	float sphereRadius = 20.0;
 	bool step = false;
 
 	void update(bool); // run every frame

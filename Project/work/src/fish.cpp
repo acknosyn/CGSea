@@ -35,7 +35,7 @@ void Fish::renderFish() {
 
 		glRotatef(angle, axis.x, axis.y, axis.z);
 
-		// velocity vector arrow
+		// velocity vector
 		glPushMatrix(); {
 			glColor3f(0.9, 0.3, 0.3); // light red
 
@@ -45,7 +45,7 @@ void Fish::renderFish() {
 		glPopMatrix();
 
 		// render geometry
-		glColor3f(0.3, 0.4, 0.8); // light blue
+		glColor3f(0.3, 0.8, 0.3); // light green
 		glutSolidCone(0.5, fishLength, 6, 5);
 	}
 	glPopMatrix();

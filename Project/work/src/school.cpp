@@ -55,7 +55,7 @@ void School::renderSchool() {
 
 void School::renderSphere() {
 	glPushMatrix(); {
-		glColor4f(0.3, 0.8, 0.3, 0.5); // transparent green
+		glColor4f(0.3, 0.4, 0.8, 0.5); // transparent blue
 		glutWireSphere(sphereRadius, 50, 50);
 	} glPopMatrix();
 }
