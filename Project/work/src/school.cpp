@@ -151,7 +151,7 @@ vec3 School::rule1(Fish *fj) {
 
 	pcj = pcj / (schoolOfFish.size() - 1);
 
-	return (pcj - fj->getPosition()) / 1000; // gives a vector which moves fish 1% of the way towards the centre
+	return (pcj - fj->getPosition()) / 1000; // gives a vector which moves fish a percentage of the way towards the centre
 }
 
 /*
@@ -160,7 +160,7 @@ vec3 School::rule1(Fish *fj) {
 	Rule 2: Boids try to keep a small distance away from other objects (including other boids).
 */
 vec3 School::rule2(Fish *fj) {
-	float minDistance = 1.0;
+	float minDistance = 1.5;
 
 	vec3 c = vec3();
 
@@ -176,7 +176,7 @@ vec3 School::rule2(Fish *fj) {
 		}
 	}
 
-	return c * 0.1; // 0.1 to lessen the amount of influence the vector has
+	return c / 10; // lessen the amount of influence the vector has
 }
 
 /*
