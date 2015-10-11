@@ -179,8 +179,28 @@ vec3 School::rule2(Fish *fj) {
 	return c * 0.1; // 0.1 to lessen the amount of influence the vector has
 }
 
+/*
+	Alignment
+
+	Rule 3: Boids try to match velocity with near boids.
+
+	Similar to rule 1, this uses the 'perceived velocity' which is the average velocity of all the other fish, not including itself.
+*/
 vec3 School::rule3(Fish *fj) {
-	return comp308::vec3();
+
+	vec3 pvj; // perceived velocity, (velocity of every fish not including fj)
+
+	for (vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
+		Fish *f = &(*it);
+
+		if (f != fj) {
+			pvj = pvj + f->getVelocity();
+		}
+	}
+
+	pvj = pvj / (schoolOfFish.size() - 1);
+
+	return (pvj - fj->getVelocity()) / 8;
 }
 
 bool School::isBoundsCollided(Fish fish) {
