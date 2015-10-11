@@ -29,7 +29,6 @@ public:
 
 	void renderSchool();
 	void renderBounds();
-	void renderCentreMass();
 
 	void initialisePositions();
 
