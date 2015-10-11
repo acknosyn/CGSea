@@ -57,7 +57,8 @@ void School::renderSchool() {
 void School::renderBounds() {
 	glPushMatrix(); {
 		glColor4f(0.3, 0.4, 0.8, 0.5); // transparent blue
-		glutWireSphere(sphereRadius, 50, 50);
+		//glutWireSphere(sphereRadius, 50, 50);
+		glutWireCube(boundsRadius * 2);
 	} glPopMatrix();
 }
 
@@ -80,7 +81,7 @@ void School::initialisePositions() {
 	// places fish randomly on the surface of the sphere
 
 	// generate random x,y,z values just outside the sphere
-	float high = sphereRadius;
+	float high = boundsRadius;
 	float low = -high;
 
 	for(vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
@@ -94,7 +95,7 @@ void School::initialisePositions() {
 
 		newPos /= length(newPos); // normalised
 
-		newPos *= sphereRadius + schoolOfFish.front().fishLength;
+		newPos *= boundsRadius + schoolOfFish.front().fishLength;
 
 	    it->setPosition(newPos);
 
@@ -128,11 +129,6 @@ void School::moveAllFishToNewPositions() {
 		fish->setPosition(position);
 
 		cout << length(velocity) << endl;
-
-		// move fish to opposite side of bounds if it goes past bounds
-		//if (isBoundsCollided(*it)) {
-		//	moveFishToOppositeOfBounds(fish);
-		//}
 	}
 }
 
@@ -211,12 +207,12 @@ vec3 School::rule3(Fish *fj) {
 
 comp308::vec3 School::boundPosition(Fish *f) {
 
-	float x_min = -sphereRadius;
-	float y_min = -sphereRadius;
-	float z_min = -sphereRadius; 
-	float x_max = sphereRadius;
-	float y_max = sphereRadius;
-	float z_max = sphereRadius;
+	float x_min = -boundsRadius;
+	float y_min = -boundsRadius;
+	float z_min = -boundsRadius; 
+	float x_max = boundsRadius;
+	float y_max = boundsRadius;
+	float z_max = boundsRadius;
 
 	float am = 0.1; // amount
 
@@ -255,29 +251,4 @@ void School::limitVelocity(Fish *f) {
 		velocity = (velocity / length(velocity)) * velocityLimit;
 		f->setVelocity(velocity);
 	}
-}
-
-bool School::isBoundsCollided(Fish fish) {
-	vec3 position = fish.getPosition();
-	vec3 origin = vec3(0, 0, 0);
-
-	vec3 distanceVector = position - origin;
-	float distance = length(distanceVector);
-
-	// how far is the fish allowed to go from the origin(center)
-	float allowance = sphereRadius + fish.fishLength + 0.001; // 0.001 is so it doesn't collide when in its initialisePositions() position
-
-	if (distance >= allowance) {
-		return true;
-	}
-
-	return false;
-}
-
-void School::moveFishToOppositeOfBounds(Fish* fish) {
-	vec3 position = fish->getPosition();
-	position /= length(position);
-	position *= (sphereRadius + fish->fishLength);
-
-	fish->setPosition(-position); // negative position is mirrored position (opposite)
 }

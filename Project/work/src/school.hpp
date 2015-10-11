@@ -22,7 +22,7 @@ private:
 public:
 	School();
 
-	float sphereRadius = 20.0;
+	float boundsRadius = 20.0;
 	bool step = false;
 
 	void update(bool); // run every frame
@@ -39,7 +39,4 @@ public:
 	comp308::vec3 rule3(Fish *);
 	comp308::vec3 boundPosition(Fish *);
 	void limitVelocity(Fish *);
-
-	bool isBoundsCollided(Fish);
-	void moveFishToOppositeOfBounds(Fish *);
 };
