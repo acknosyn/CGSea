@@ -51,12 +51,28 @@ void School::renderSchool() {
 	
 	// render bounds
 	renderSphere();
+	renderCentreMass();
 }
 
 void School::renderSphere() {
 	glPushMatrix(); {
 		glColor4f(0.3, 0.4, 0.8, 0.5); // transparent blue
 		glutWireSphere(sphereRadius, 50, 50);
+	} glPopMatrix();
+}
+
+void School::renderCentreMass() {
+	vec3 centre;
+	for (std::vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
+		centre += (*it).getPosition();
+	}
+	centre /= schoolOfFish.size(); // average position of every fish
+
+	glPushMatrix(); {
+		glColor3f(0.8, 0.4, 0.4); // bright red
+		glTranslatef(centre.x, centre.y, centre.z);
+
+		glutSolidSphere(0.5, 10, 10);
 	} glPopMatrix();
 }
 
