@@ -178,5 +178,9 @@ bool School::isBoundsCollided(Fish fish) {
 }
 
 void School::moveFishToOppositeOfBounds(Fish* fish) {
-	fish->setPosition(-fish->getPosition()); // negative position is mirrored position (opposite)
+	vec3 position = fish->getPosition();
+	position /= length(position);
+	position *= (sphereRadius + fish->fishLength);
+
+	fish->setPosition(-position); // negative position is mirrored position (opposite)
 }
