@@ -37,6 +37,7 @@ public:
 	comp308::vec3 rule1(Fish *);
 	comp308::vec3 rule2(Fish *);
 	comp308::vec3 rule3(Fish *);
+	void limitVelocity(Fish *);
 
 	bool isBoundsCollided(Fish);
 	void moveFishToOppositeOfBounds(Fish *);

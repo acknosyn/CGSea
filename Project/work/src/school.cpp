@@ -118,10 +118,14 @@ void School::moveAllFishToNewPositions() {
 		v3 = rule3(fish);
 
 		vec3 velocity = fish->getVelocity() + v1 + v2 + v3;
-		vec3 position = fish->getPosition() + velocity;
-
-		fish->setPosition(position);
 		fish->setVelocity(velocity);
+
+		limitVelocity(fish);
+
+		vec3 position = fish->getPosition() + fish->getVelocity();
+		fish->setPosition(position);
+
+		cout << length(velocity) << endl;
 
 		// move fish to opposite side of bounds if it goes past bounds
 		if (isBoundsCollided(*it)) {
@@ -201,6 +205,26 @@ vec3 School::rule3(Fish *fj) {
 	pvj = pvj / (schoolOfFish.size() - 1);
 
 	return (pvj - fj->getVelocity()) / 8;
+}
+
+void School::limitVelocity(Fish *f) {
+	/*
+	Integer vlim
+    Vector v
+
+    IF |b.velocity| > vlim THEN
+            b.velocity = (b.velocity / |b.velocity|) * vlim
+    END IF
+	*/
+
+	float velocityLimit = 0.5;
+	
+	vec3 velocity = f->getVelocity();
+
+	if (length(velocity) > velocityLimit) {
+		velocity = (velocity / length(velocity)) * velocityLimit;
+		f->setVelocity(velocity);
+	}
 }
 
 bool School::isBoundsCollided(Fish fish) {
