@@ -214,7 +214,7 @@ comp308::vec3 School::boundPosition(Fish *f) {
 	float y_max = boundsRadius;
 	float z_max = boundsRadius;
 
-	float am = 0.1; // amount
+	float am = 0.05; // amount
 
 	vec3 v;
 	vec3 pos = f->getPosition();
