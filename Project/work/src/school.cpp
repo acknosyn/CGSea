@@ -45,7 +45,7 @@ void School::update(bool play) {
 
 void School::renderSchool() {
 	// render every fish
-	for(std::vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
+	for(vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
     	it->renderFish();
 	}
 	
@@ -63,7 +63,7 @@ void School::renderSphere() {
 
 void School::renderCentreMass() {
 	vec3 centre;
-	for (std::vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
+	for (vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
 		centre += (*it).getPosition();
 	}
 	centre /= schoolOfFish.size(); // average position of every fish
@@ -83,7 +83,7 @@ void School::initialisePositions() {
 	float high = sphereRadius;
 	float low = -high;
 
-	for(std::vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
+	for(vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
 
 		float x = low + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(high - low)));
 		float y = low + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(high - low)));
@@ -103,22 +103,19 @@ void School::initialisePositions() {
 	}
 }
 /*
-Actual boids algorithm
+	Actual boids algorithm
 */
 void School::moveAllFishToNewPositions() {
 
 	vec3 v1, v2, v3; // the 3 main rules for a boid
 
-	for (std::vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
+	for (vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
 
 		Fish *fish = &(*it); // &(*it) is an address ('&') to the dereferenced pointer ('(*it)'), which is a pointer
 
 		v1 = rule1(fish);
 		v2 = rule2(fish);
 		v3 = rule3(fish);
-
-		//b.velocity = b.velocity + v1 + v2 + v3
-		//b.position = b.position + b.velocity
 
 		vec3 velocity = fish->getVelocity() + v1 + v2 + v3;
 		vec3 position = fish->getPosition() + velocity;
@@ -133,15 +130,33 @@ void School::moveAllFishToNewPositions() {
 	}
 }
 
-comp308::vec3 School::rule1(Fish *) {
+/*
+	Rule 1: Boids try to fly towards the centre of mass of neighbouring boids.
+	
+	This uses the 'perceived centre' which is the centre of all the other fish, not including itself.
+*/
+vec3 School::rule1(Fish *fj) {
+
+	vec3 pcj; // perceived centre, (centre of every fish not including fj)
+
+	for (vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
+		Fish *f = &(*it);
+
+		if (f != fj) {
+			pcj = pcj + f->getPosition();
+		}
+	}
+
+	pcj = pcj / (schoolOfFish.size() - 1);
+
+	return (pcj - fj->getPosition()) / 1000; // gives a vector which moves fish 1% of the way towards the centre
+}
+
+vec3 School::rule2(Fish *) {
 	return comp308::vec3();
 }
 
-comp308::vec3 School::rule2(Fish *) {
-	return comp308::vec3();
-}
-
-comp308::vec3 School::rule3(Fish *) {
+vec3 School::rule3(Fish *) {
 	return comp308::vec3();
 }
 
