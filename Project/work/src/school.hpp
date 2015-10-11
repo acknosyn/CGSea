@@ -28,7 +28,7 @@ public:
 	void update(bool); // run every frame
 
 	void renderSchool();
-	void renderSphere();
+	void renderBounds();
 	void renderCentreMass();
 
 	void initialisePositions();
@@ -37,6 +37,7 @@ public:
 	comp308::vec3 rule1(Fish *);
 	comp308::vec3 rule2(Fish *);
 	comp308::vec3 rule3(Fish *);
+	comp308::vec3 boundPosition(Fish *);
 	void limitVelocity(Fish *);
 
 	bool isBoundsCollided(Fish);

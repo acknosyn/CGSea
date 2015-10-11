@@ -50,11 +50,11 @@ void School::renderSchool() {
 	}
 	
 	// render bounds
-	renderSphere();
+	renderBounds();
 	renderCentreMass();
 }
 
-void School::renderSphere() {
+void School::renderBounds() {
 	glPushMatrix(); {
 		glColor4f(0.3, 0.4, 0.8, 0.5); // transparent blue
 		glutWireSphere(sphereRadius, 50, 50);
@@ -108,6 +108,7 @@ void School::initialisePositions() {
 void School::moveAllFishToNewPositions() {
 
 	vec3 v1, v2, v3; // the 3 main rules for a boid
+	vec3 v4;
 
 	for (vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
 
@@ -116,8 +117,9 @@ void School::moveAllFishToNewPositions() {
 		v1 = rule1(fish);
 		v2 = rule2(fish);
 		v3 = rule3(fish);
+		v4 = boundPosition(fish);
 
-		vec3 velocity = fish->getVelocity() + v1 + v2 + v3;
+		vec3 velocity = fish->getVelocity() + v1 + v2 + v3 + v4;
 		fish->setVelocity(velocity);
 
 		limitVelocity(fish);
@@ -128,9 +130,9 @@ void School::moveAllFishToNewPositions() {
 		cout << length(velocity) << endl;
 
 		// move fish to opposite side of bounds if it goes past bounds
-		if (isBoundsCollided(*it)) {
-			moveFishToOppositeOfBounds(fish);
-		}
+		//if (isBoundsCollided(*it)) {
+		//	moveFishToOppositeOfBounds(fish);
+		//}
 	}
 }
 
@@ -207,15 +209,43 @@ vec3 School::rule3(Fish *fj) {
 	return (pvj - fj->getVelocity()) / 8;
 }
 
-void School::limitVelocity(Fish *f) {
-	/*
-	Integer vlim
-    Vector v
+comp308::vec3 School::boundPosition(Fish *f) {
 
-    IF |b.velocity| > vlim THEN
-            b.velocity = (b.velocity / |b.velocity|) * vlim
-    END IF
-	*/
+	float x_min = -sphereRadius;
+	float y_min = -sphereRadius;
+	float z_min = -sphereRadius; 
+	float x_max = sphereRadius;
+	float y_max = sphereRadius;
+	float z_max = sphereRadius;
+
+	float am = 0.1; // amount
+
+	vec3 v;
+	vec3 pos = f->getPosition();
+
+	if (pos.x < x_min) {
+		v.x = am;
+	}
+	else if (pos.x > x_max) {
+		v.x = -am;
+	}
+	if (pos.y < y_min) {
+		v.y = am;
+	}
+	else if (pos.y > y_max) {
+		v.y = -am;
+	}
+	if (pos.z < z_min) {
+		v.z = am;
+	}
+	else if (pos.z > z_max) {
+		v.z = -am;
+	}
+
+	return v;
+}
+
+void School::limitVelocity(Fish *f) {
 
 	float velocityLimit = 0.5;
 	
