@@ -131,6 +131,8 @@ void School::moveAllFishToNewPositions() {
 }
 
 /*
+	Cohesion
+
 	Rule 1: Boids try to fly towards the centre of mass of neighbouring boids.
 	
 	This uses the 'perceived centre' which is the centre of all the other fish, not including itself.
@@ -152,11 +154,32 @@ vec3 School::rule1(Fish *fj) {
 	return (pcj - fj->getPosition()) / 1000; // gives a vector which moves fish 1% of the way towards the centre
 }
 
-vec3 School::rule2(Fish *) {
-	return comp308::vec3();
+/*
+	Separation
+
+	Rule 2: Boids try to keep a small distance away from other objects (including other boids).
+*/
+vec3 School::rule2(Fish *fj) {
+	float minDistance = 1.0;
+
+	vec3 c = vec3();
+
+	for (vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
+		Fish *f = &(*it);
+
+		if (f != fj) {
+			vec3 distanceBetweenFish = f->getPosition() - fj->getPosition();
+
+			if (length(distanceBetweenFish) < minDistance) {
+				c = c - distanceBetweenFish;
+			}
+		}
+	}
+
+	return c * 0.1; // 0.1 to lessen the amount of influence the vector has
 }
 
-vec3 School::rule3(Fish *) {
+vec3 School::rule3(Fish *fj) {
 	return comp308::vec3();
 }
 
