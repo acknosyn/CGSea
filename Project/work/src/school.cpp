@@ -56,7 +56,8 @@ void School::renderSchool() {
 void School::renderBounds() {
 	glPushMatrix(); {
 		glColor4f(0.3, 0.4, 0.8, 0.5); // transparent blue
-		//glutWireSphere(sphereRadius, 50, 50);
+		
+		glScalef(2, 1, 1);
 		glutWireCube(boundsRadius * 2);
 	} glPopMatrix();
 }
@@ -191,10 +192,10 @@ vec3 School::rule3(Fish *fj) {
 
 comp308::vec3 School::boundPosition(Fish *f) {
 
-	float x_min = -boundsRadius;
+	float x_min = -boundsRadius * 2;
 	float y_min = -boundsRadius;
 	float z_min = -boundsRadius; 
-	float x_max = boundsRadius;
+	float x_max = boundsRadius * 2;
 	float y_max = boundsRadius;
 	float z_max = boundsRadius;
 
