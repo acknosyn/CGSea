@@ -20,6 +20,7 @@
 #include "comp308.hpp"
 #include "terrain.hpp"
 #include "school.hpp"
+#include "shaderLoader.hpp"
 
 using namespace std;
 using namespace comp308;
@@ -36,6 +37,11 @@ GLuint g_mainWindow = 0;
 // Terrain loader and drawer
 //
 Terrain *g_terrain = nullptr;
+
+// Shader information
+//
+GLuint g_shader = 0;
+float timer = 0;
 
 
 // Fishy stuff
@@ -111,6 +117,10 @@ void setUpCamera() {
 	glRotatef(g_yWorldRotation, 0, 1, 0);
 }
 
+void initShader() {
+	g_shader = makeShaderProgram("work/assets/shaders/shaderDemo.vert", "work/assets/shaders/shaderDemo.frag");
+}
+
 
 // Draw function
 //
@@ -142,7 +152,17 @@ void draw() {
 		g_school->update(play);
 	}
 
-	if (g_causticsActive) // render caustics
+	if (g_causticsActive) {
+		// render caustics
+		// Use the shader we made
+		glUseProgram(g_shader);
+		timer += 0.1;
+
+		// Set our sampler (timer) to use timer as the source
+		glUniform1f(glGetUniformLocation(g_shader, "timer"), timer);
+	} else {
+		glUseProgram(0);
+	}
 
 	// Disable flags for cleanup (optional)
 	glDisable(GL_DEPTH_TEST);
@@ -355,6 +375,7 @@ int main(int argc, char **argv) {
 
 	// Create a light on the camera
 	initLight();
+	initShader();
 
 
 	// Loop required by OpenGL

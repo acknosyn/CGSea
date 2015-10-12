@@ -13,6 +13,7 @@ SET(headers
 	"perlin.hpp"
 	"fish.hpp"
 	"school.hpp"
+	"shaderLoader.hpp"
 )
 
 
