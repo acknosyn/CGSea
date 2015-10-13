@@ -20,7 +20,7 @@ private:
 public:
 	Fish();
 
-	float fishLength = 1.0;
+	float fishLength = 1.5;
 
 	void renderFish();
 

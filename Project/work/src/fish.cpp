@@ -46,7 +46,15 @@ void Fish::renderFish() {
 
 		// render geometry
 		glColor3f(0.3, 0.8, 0.3); // light green
-		glutSolidCone(0.5, fishLength, 6, 5);
+
+		glScalef(0.2, 1, 1);
+		float tailLength = fishLength * (1.0f/3.0f);
+		glutSolidCone(0.3, tailLength, 6, 5);
+
+		glScalef(1, 0.5, 1);
+		float bodyLength = fishLength * (2.0f / 3.0f);
+		glTranslatef(0, 0, tailLength + (bodyLength / 2));
+		glutSolidSphere(bodyLength/2, 10, 10);
 	}
 	glPopMatrix();
 }
