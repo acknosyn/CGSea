@@ -112,8 +112,6 @@ void School::moveAllFishToNewPositions() {
 
 		vec3 position = fish->getPosition() + fish->getVelocity();
 		fish->setPosition(position);
-
-		cout << length(velocity) << endl;
 	}
 }
 
@@ -163,7 +161,9 @@ vec3 School::rule2(Fish *fj) {
 		}
 	}
 
-	return c / 10; // lessen the amount of influence the vector has
+	//cout << length(fj->getVelocity()) <<", " << length(c / 10.0) << endl;
+
+	return c / 2.0; // lessen the amount of influence the vector has
 }
 
 /*

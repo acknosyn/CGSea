@@ -16,7 +16,7 @@
 
 class School {
 private:
-	int fishAmount = 10;
+	int fishAmount = 30;
 	std::vector<Fish> schoolOfFish;
 
 public:
