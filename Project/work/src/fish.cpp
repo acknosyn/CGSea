@@ -47,7 +47,7 @@ void Fish::renderFish(bool info) {
 		}
 		
 		// render geometry
-		glColor3f(0.3, 0.8, 0.3); // light green
+		glColor3f(0.2, 0.2, 0.6); // light green
 
 		glScalef(0.2, 1, 1);
 		float tailLength = fishLength * (1.0f/3.0f);
