@@ -242,6 +242,16 @@ void keyboardCallback(unsigned char key, int x, int y) {
 			g_zPos -= sin(g_yRotation*PI/180);
 			break;
 
+		case 'r': //reset position
+			g_yWorldRotation = 0;
+			g_xWorldRotation = 0;
+			g_yRotation = 0;
+			g_xRotation = 0;
+			g_xPos = 0;
+			g_yPos = 0;
+			g_zPos = -170;
+			break;
+
 		case 't': //toggle terrain
 			g_terrainActive = !g_terrainActive;
 			break;
