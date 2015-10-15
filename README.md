@@ -22,3 +22,4 @@ F - Toggles fish on/off
 C - Toggles caustics on/off  
 P - Pauses/plays fish simulation  
 O - Steps through fish simulation 1 frame
+I - Toggles fish information on/off. I.e. velocity vector and bounding box
