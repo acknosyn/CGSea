@@ -365,9 +365,9 @@ int main(int argc, char **argv) {
 		g_terrain = new Terrain();
 	}
 	// Creat coral
-	g_coral1 = new Coral(35.0f,-25.0f,40.0f,5.0f, 2.0f,6,1);
+	g_coral1 = new Coral(0.0f,-25.0f,0.0f,5.0f, 2.0f,6,1);
 	g_coral1->changeColour(217.0f, 180.0f, 214.0f);
-	g_coral2 = new Coral(-10.0f,-25.0f,-30.0f,30.0f, 1.5f,6,2);
+	g_coral2 = new Coral(-25.0f,-25.0f,-60.0f,30.0f, 1.5f,6,2);
 	g_coral2->changeColour(224.0f, 19.0f, 49.0f);
 
 	// Fishy stuff
