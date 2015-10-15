@@ -62,6 +62,7 @@ bool info = false;
 
 // toggle values
 bool g_terrainActive = false;
+bool g_coralActive = false;
 bool g_fishActive = false;
 bool g_causticsActive = false;
 
@@ -157,6 +158,8 @@ void draw() {
 	// Render 
 	if (g_terrainActive) {
 		g_terrain->renderTerrain();
+	}
+	if(g_coralActive) {
 		g_coral1->renderCoral();
 		g_coral2->renderCoral();
 		g_coral3->renderCoral();
@@ -239,8 +242,22 @@ void keyboardCallback(unsigned char key, int x, int y) {
 			g_zPos -= sin(g_yRotation*PI/180);
 			break;
 
+		case 'r': //reset position
+			g_yWorldRotation = 0;
+			g_xWorldRotation = 0;
+			g_yRotation = 0;
+			g_xRotation = 0;
+			g_xPos = 0;
+			g_yPos = 0;
+			g_zPos = -170;
+			break;
+
 		case 't': //toggle terrain
 			g_terrainActive = !g_terrainActive;
+			break;
+
+		case 'y': //toggle coral
+			g_coralActive = !g_coralActive;
 			break;
 
 		case 'f': //toggle fish
@@ -379,7 +396,7 @@ int main(int argc, char **argv) {
 	g_coral1->changeColour(217.0f, 180.0f, 214.0f);
 	g_coral2 = new Coral(-25.0f,-25.0f,-60.0f,30.0f, 1.5f,6,2);
 	g_coral2->changeColour(224.0f, 19.0f, 49.0f);
-	g_coral3 = new Coral(50.0f,-25.0f,-80.0f,10.0f, 1.5f,5,3);
+	g_coral3 = new Coral(50.0f,-28.0f,-80.0f,10.0f, 1.5f,5,3);
 	g_coral3->changeColour(213.0f, 198.0f, 198.0f);
 // 	g_coral4 = new Coral(-50.0f,-25.0f,-80.0f,2.0f, 0.25f,7,4);
 // 	g_coral4->changeColour(188.0f, 214.0f, 198.0f);
