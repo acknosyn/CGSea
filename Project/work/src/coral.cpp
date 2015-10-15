@@ -6,7 +6,6 @@
 //
 //----------------------------------------------------------------------------
 
-#include <unistd.h>
 #include <cmath>
 #include <iostream>
 #include <fstream>
