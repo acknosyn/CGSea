@@ -60,7 +60,7 @@ void School::renderBounds() {
 	glPushMatrix(); {
 		glColor4f(0.3, 0.4, 0.8, 0.5); // transparent blue
 		
-		glScalef(2, 1, 1);
+		glScalef(2.5, 1, 2.5);
 		glutWireCube(boundsRadius * 2);
 	} glPopMatrix();
 }
@@ -97,7 +97,7 @@ void School::initialisePositions() {
 void School::moveAllFishToNewPositions() {
 
 	vec3 v1, v2, v3; // the 3 main rules for a boid
-	vec3 v4;
+	vec3 v4, v5;
 
 	for (vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
 
@@ -107,8 +107,9 @@ void School::moveAllFishToNewPositions() {
 		v2 = rule2(fish);
 		v3 = rule3(fish);
 		v4 = boundPosition(fish);
+		v5 = avoidCoral(fish);
 
-		vec3 velocity = fish->getVelocity() + v1 + v2 + v3 + v4;
+		vec3 velocity = fish->getVelocity() + v1 + v2 + v3 + v4; // + v5;
 		fish->setVelocity(velocity);
 
 		limitVelocity(fish);
@@ -195,17 +196,54 @@ vec3 School::rule3(Fish *fj) {
 
 comp308::vec3 School::boundPosition(Fish *f) {
 
-	float x_min = -boundsRadius * 2;
+	float x_min = -boundsRadius * 2.5;
 	float y_min = -boundsRadius;
-	float z_min = -boundsRadius; 
-	float x_max = boundsRadius * 2;
+	float z_min = -boundsRadius * 2.5; 
+	float x_max = boundsRadius * 2.5;
 	float y_max = boundsRadius;
-	float z_max = boundsRadius;
+	float z_max = boundsRadius * 2.5;
 
 	float am = 0.05; // amount
 
 	vec3 v;
 	vec3 pos = f->getPosition();
+
+	if (pos.x < x_min) {
+		v.x = am;
+	}
+	else if (pos.x > x_max) {
+		v.x = -am;
+	}
+	if (pos.y < y_min) {
+		v.y = am;
+	}
+	else if (pos.y > y_max) {
+		v.y = -am;
+	}
+	if (pos.z < z_min) {
+		v.z = am;
+	}
+	else if (pos.z > z_max) {
+		v.z = -am;
+	}
+
+	return v;
+}
+
+comp308::vec3 School::avoidCoral(Fish *f) {
+
+	float x_min = -boundsRadius * 2;
+	float y_min = -boundsRadius;
+	float z_min = -boundsRadius * 2.5; 
+	float x_max = boundsRadius * 2;
+	float y_max = boundsRadius;
+	float z_max = boundsRadius * 2.5;
+
+	float am = 0.05; // amount
+
+	vec3 v;
+	vec3 pos = f->getPosition();
+	detectCoral(f);
 
 	if (pos.x < x_min) {
 		v.x = am;
@@ -239,4 +277,17 @@ void School::limitVelocity(Fish *f) {
 		velocity = (velocity / length(velocity)) * velocityLimit;
 		f->setVelocity(velocity);
 	}
+}
+
+bool School::detectCoral(Fish *f) {
+	
+	vec3 position = f->getPosition();
+
+	glPushMatrix(); {
+		glColor3f(0.9, 0.2, 0.2);
+		glTranslatef(-10.0f,0,-30.0f);
+		glutWireCube(30);
+	} glPopMatrix();
+
+	return false;
 }

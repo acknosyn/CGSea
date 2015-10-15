@@ -38,5 +38,8 @@ public:
 	comp308::vec3 rule2(Fish *);
 	comp308::vec3 rule3(Fish *);
 	comp308::vec3 boundPosition(Fish *);
+	comp308::vec3 avoidCoral(Fish *);
+	
 	void limitVelocity(Fish *);
+	bool detectCoral(Fish *);
 };
