@@ -38,7 +38,8 @@ GLuint g_mainWindow = 0;
 // Terrain loader and drawer
 //
 Terrain *g_terrain = nullptr;
-Coral *g_coral = nullptr;
+Coral *g_coral1 = nullptr;
+Coral *g_coral2 = nullptr;
 
 // Shader information
 //
@@ -85,9 +86,9 @@ float g_zPos = -200;
 // Called once on start up
 // 
 void initLight() {
-	float direction[]	  = {0.0f, 0.0f, 1.0f, 0.0f};
-	float diffintensity[] = {0.7f, 0.7f, 0.7f, 1.0f};
-	float ambient[]       = {0.2f, 0.2f, 0.2f, 1.0f};
+	float direction[]	  = {1.0f, 1.0f, 0.1f, 0.0f};
+	float diffintensity[] = {0.4f, 0.4f, 0.4f, 1.0f};
+	float ambient[]       = {0.05f, 0.05f, 0.05f, 1.0f};
 
 	glLightfv(GL_LIGHT0, GL_POSITION, direction);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE,  diffintensity);
@@ -150,7 +151,8 @@ void draw() {
 	// Render 
 	if (g_terrainActive) {
 		g_terrain->renderTerrain();
-		g_coral->renderCoral();
+		g_coral1->renderCoral();
+		g_coral2->renderCoral();
 	}
 
 	if (g_fishActive) {
@@ -194,12 +196,6 @@ void reshape(int w, int h) {
     glViewport(0, 0, g_winWidth, g_winHeight);  
 }
 
-
-//-------------------------------------------------------------
-// [Assignment 2] :
-// Modify the keyboardCallback function and additional files,
-// to make your priman pose when the 'p' key is pressed.
-//-------------------------------------------------------------
 
 // Keyboard callback
 // Called once per button state change
@@ -364,7 +360,10 @@ int main(int argc, char **argv) {
 		g_terrain = new Terrain();
 	}
 	// Creat coral
-	g_coral = new Coral(50.0f,-25.0f,-50.0f,10.0f,6);
+	g_coral1 = new Coral(35.0f,-25.0f,40.0f,5.0f, 2.0f,6,1);
+	g_coral1->changeColour(217.0f, 180.0f, 214.0f);
+	g_coral2 = new Coral(-10.0f,-25.0f,-30.0f,30.0f, 1.5f,6,2);
+	g_coral2->changeColour(224.0f, 19.0f, 49.0f);
 
 	// Fishy stuff
 	g_school = new School();

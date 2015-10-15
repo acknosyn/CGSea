@@ -78,5 +78,7 @@ void Terrain::saveObj() {
 }
 
 void Terrain::renderTerrain() {
+	glShadeModel(GL_SMOOTH);
+	glColor3f(173.0f/255.0f,177.0f/255.0f,157.0f/255.0f);
 	g_geometry->renderGeometry();
 }

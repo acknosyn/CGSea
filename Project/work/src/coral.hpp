@@ -20,24 +20,30 @@
 // Type to represent a branch
 struct branch {
 	float length = 0;             // Length of the branch
+	float radius = 0;             // Radius of the branch
 	float yRot = 0;
 	float xRot = 0;
 	std::vector<int> children; // Pointers to branch children in m_branches
-	// For the root
-	comp308::vec3 translation;    // Translation (Only for the Root)
 };
 
 class Coral {
 
 private:
 	std::vector<branch> m_branches;
+	comp308::vec3 m_translation;    // Translation
+	// Colour
+	float m_r = 255.0f;
+	float m_g = 0.0f;
+	float m_b = 0.0f;
 	
-	int createBranch(float, float, float, float, float, float, int);
+	int createBranch1(float, float, float, float, int);
+	int createBranch2(float, float, float, float, int);
 
 	void drawAxis(branch *, GLUquadric*);
 	void renderBranch(branch *, GLUquadric*);
 
 public:
-	Coral(float, float, float, float, int);
+	Coral(float, float, float, float, float, int, int);
+	void changeColour(float, float, float);
 	void renderCoral();
 };
