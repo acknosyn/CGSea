@@ -40,6 +40,11 @@ GLuint g_mainWindow = 0;
 Terrain *g_terrain = nullptr;
 Coral *g_coral1 = nullptr;
 Coral *g_coral2 = nullptr;
+Coral *g_coral3 = nullptr;
+// Coral *g_coral4 = nullptr;
+// Coral *g_coral5 = nullptr;
+// Coral *g_coral6 = nullptr;
+// Coral *g_coral7 = nullptr;
 
 // Shader information
 //
@@ -145,7 +150,7 @@ void draw() {
 
 
 	// Set the current material (for all objects) to red
-	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE); 
+	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE); 
 	glColor3f(1.0f,0.0f,0.0f);
 
 
@@ -154,6 +159,11 @@ void draw() {
 		g_terrain->renderTerrain();
 		g_coral1->renderCoral();
 		g_coral2->renderCoral();
+		g_coral3->renderCoral();
+// 		g_coral4->renderCoral();
+// 		g_coral5->renderCoral();
+// 		g_coral6->renderCoral();
+// 		g_coral7->renderCoral();
 	}
 
 	if (g_fishActive) {
@@ -364,11 +374,21 @@ int main(int argc, char **argv) {
 	} else {
 		g_terrain = new Terrain();
 	}
-	// Creat coral
+	// Create coral
 	g_coral1 = new Coral(0.0f,-25.0f,0.0f,5.0f, 2.0f,6,1);
 	g_coral1->changeColour(217.0f, 180.0f, 214.0f);
 	g_coral2 = new Coral(-25.0f,-25.0f,-60.0f,30.0f, 1.5f,6,2);
 	g_coral2->changeColour(224.0f, 19.0f, 49.0f);
+	g_coral3 = new Coral(50.0f,-25.0f,-80.0f,10.0f, 1.5f,5,3);
+	g_coral3->changeColour(213.0f, 198.0f, 198.0f);
+// 	g_coral4 = new Coral(-50.0f,-25.0f,-80.0f,2.0f, 0.25f,7,4);
+// 	g_coral4->changeColour(188.0f, 214.0f, 198.0f);
+// 	g_coral5 = new Coral(-58.0f,-25.0f,-80.0f,2.0f, 0.25f,7,4);
+// 	g_coral5->changeColour(188.0f, 214.0f, 198.0f);
+// 	g_coral6 = new Coral(-64.0f,-25.0f,-80.0f,2.0f, 0.25f,7,4);
+// 	g_coral6->changeColour(188.0f, 214.0f, 198.0f);
+// 	g_coral7 = new Coral(-72.0f,-25.0f,-80.0f,2.0f, 0.25f,7,4);
+// 	g_coral7->changeColour(188.0f, 214.0f, 198.0f);
 
 	// Fishy stuff
 	g_school = new School();

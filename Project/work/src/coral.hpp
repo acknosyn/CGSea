@@ -38,6 +38,8 @@ private:
 	
 	int createBranch1(float, float, float, float, int);
 	int createBranch2(float, float, float, float, int);
+	int createBranch3(float, float, float, float, int);
+	int createBranch4(float, float, float, float, int);
 
 	void drawAxis(branch *, GLUquadric*);
 	void renderBranch(branch *, GLUquadric*);

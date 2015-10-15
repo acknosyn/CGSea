@@ -20,8 +20,8 @@ using namespace std;
 using namespace comp308;
 
 // Global variables
-GLint g_slices = 10;
-GLint g_stacks = 10;
+GLint g_slices = 6;
+GLint g_stacks = 6;
 
 int g_numChildren = 3;
 float g_angle = 45.0;
@@ -35,6 +35,10 @@ Coral::Coral(float x, float y, float z, float length, float radius, int size, in
 		createBranch1(length, radius, 0, 0, size);
 	}else if(style==2) {
 		createBranch2(length, radius, 0, 0, size);
+	}else if(style==3) {
+		createBranch3(length, radius, 0, 20, size);
+	}else if(style==4) {
+		createBranch4(length, radius, 0, 0, size);
 	}
 }
 
@@ -67,6 +71,54 @@ int Coral::createBranch2(float length, float radius, float yAngle, float xAngle,
 			float yAng = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/40.0))-20.0;
 			float xDiff = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/40.0))-20.0;
 			int c = createBranch2(length*0.6, radius*0.5, yAng, i*150.0/g_numChildren+50.0+xDiff, size-1);
+			b.children.push_back(c);
+		}
+	}
+	m_branches.push_back(b);
+	return m_branches.size()-1;
+}
+
+int Coral::createBranch3(float length, float radius, float yAngle, float xAngle, int size) {
+	branch b = branch();
+	b.yRot = yAngle + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/4.0)) - 2.0;
+	b.xRot = xAngle + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/4.0)) - 2.0;
+	b.length = length*(0.6+(static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/0.4))));
+	b.radius = radius;
+	if(size > 1) {
+		for(int i=0;i<g_numChildren; ++i) {
+			if(size > 3) {
+				float yAng = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/10.0))-5.0;
+				float xDiff = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/10.0))-5.0;
+				int c = createBranch1(length*0.8, radius*0.6, i*360.0/g_numChildren+yAng, g_angle+xDiff, size-1);
+				b.children.push_back(c);
+			}else {
+				float yAng = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/40.0))-20.0;
+				float xDiff = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/40.0))-20.0;
+				int c = createBranch2(length*0.8, radius*0.5, 5.0, i*150.0/g_numChildren+50.0+xDiff, 2);
+				b.children.push_back(c);
+			}
+		}
+		if(size > 3) {
+			float yAng = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/40.0))-20.0;
+			float xDiff = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/10.0))-5.0;
+			int c = createBranch3(length*0.9, radius*0.8, 0+yAng, 90+xDiff, size-1);
+			b.children.push_back(c);
+		}
+	}
+	m_branches.push_back(b);
+	return m_branches.size()-1;
+}
+
+int Coral::createBranch4(float length, float radius, float yAngle, float xAngle, int size) {
+	branch b = branch();
+	b.yRot = yAngle + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/4.0)) - 2.0;
+	b.xRot = xAngle + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/4.0)) - 2.0;
+	b.length = length*(0.6+(static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/0.4))));
+	b.radius = radius;
+	if(size > 1) {
+		for(int i=0;i<g_numChildren; ++i) {
+			float xDiff = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/10.0))-5.0;
+			int c = createBranch4(length*0.9, radius*0.85, i*360.0/g_numChildren, 10+xDiff, size-1);
 			b.children.push_back(c);
 		}
 	}
