@@ -22,7 +22,7 @@ Fish::Fish() {
 	velocity = vec3(0, 0, 0);
 }
 
-void Fish::renderFish() {
+void Fish::renderFish(bool info) {
 
 	glPushMatrix(); {
 		// translate to position of fish
@@ -35,17 +35,19 @@ void Fish::renderFish() {
 
 		glRotatef(angle, axis.x, axis.y, axis.z);
 
-		// velocity vector
-		glPushMatrix(); {
-			glColor3f(0.9, 0.3, 0.3); // light red
+		if (info) {
+			// velocity vector
+			glPushMatrix(); {
+				glColor3f(0.9, 0.3, 0.3); // light red
 
-			GLUquadricObj *quadObj = gluNewQuadric();
-			gluCylinder(quadObj, 0.03, 0.03, length(velocity) + fishLength, 10, 10);
-		} 
-		glPopMatrix();
-
+				GLUquadricObj *quadObj = gluNewQuadric();
+				gluCylinder(quadObj, 0.03, 0.03, length(velocity) + fishLength, 10, 10);
+			} 
+			glPopMatrix();
+		}
+		
 		// render geometry
-		glColor3f(0.3, 0.8, 0.3); // light green
+		glColor3f(0.2, 0.2, 0.6); // light green
 
 		glScalef(0.2, 1, 1);
 		float tailLength = fishLength * (1.0f/3.0f);

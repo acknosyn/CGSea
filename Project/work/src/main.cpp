@@ -52,6 +52,7 @@ float timer = 0;
 // School of fish
 School *g_school = nullptr;
 bool play = false;
+bool info = false;
 
 
 // toggle values
@@ -156,7 +157,7 @@ void draw() {
 	}
 
 	if (g_fishActive) {
-		g_school->update(play);
+		g_school->update(play, info);
 	}
 
 	if (g_causticsActive) {
@@ -246,6 +247,10 @@ void keyboardCallback(unsigned char key, int x, int y) {
 
 		case 'o': // step 1 frame through fish sim
 			g_school->step = true;
+			break;
+
+		case 'i': // toggles fish information
+			info = !info;
 			break;
 	}
 }

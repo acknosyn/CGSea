@@ -18,6 +18,7 @@ class School {
 private:
 	int fishAmount = 30;
 	std::vector<Fish> schoolOfFish;
+	bool info = false;
 
 public:
 	School();
@@ -25,7 +26,7 @@ public:
 	float boundsRadius = 20.0;
 	bool step = false;
 
-	void update(bool); // run every frame
+	void update(bool, bool); // run every frame
 
 	void renderSchool();
 	void renderBounds();
@@ -37,5 +38,8 @@ public:
 	comp308::vec3 rule2(Fish *);
 	comp308::vec3 rule3(Fish *);
 	comp308::vec3 boundPosition(Fish *);
+	comp308::vec3 avoidCoral(Fish *);
+	
 	void limitVelocity(Fish *);
+	bool detectCoral(Fish *);
 };
