@@ -391,7 +391,8 @@ int main(int argc, char **argv) {
 // 	g_coral7->changeColour(188.0f, 214.0f, 198.0f);
 
 	// Fishy stuff
-	g_school = new School();
+	Geometry * spongebob = new Geometry("work/assets/SpongeBob/spongebob.obj");
+	g_school = new School(spongebob);
 
 	// Register functions for callback
 	glutDisplayFunc(draw);

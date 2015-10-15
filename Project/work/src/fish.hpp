@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "comp308.hpp"
+#include "geometry.hpp"
 
 class Fish {
 private:
@@ -22,7 +23,7 @@ public:
 
 	float fishLength = 1.5;
 
-	void renderFish(bool);
+	void renderFish(bool, Geometry *);
 
 	comp308::vec3 getPosition();
 	comp308::vec3 getVelocity();

@@ -15,11 +15,13 @@
 #include "comp308.hpp"
 #include "school.hpp"
 #include "fish.hpp"
+#include "geometry.hpp"
 
 using namespace std;
 using namespace comp308;
 
-School::School() {
+School::School(Geometry * g) {
+	spongebob = g;
 	// init fish
 	int i = 0;
 	for (; i < fishAmount; i++) {
@@ -48,7 +50,7 @@ void School::update(bool play, bool i) {
 void School::renderSchool() {
 	// render every fish
 	for(vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
-    	it->renderFish(info);
+    	it->renderFish(info, spongebob);
 	}
 	
 	if (info) {

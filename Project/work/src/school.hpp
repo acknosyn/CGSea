@@ -13,15 +13,17 @@
 
 #include "comp308.hpp"
 #include "fish.hpp"
+#include "geometry.hpp"
 
 class School {
 private:
 	int fishAmount = 30;
 	std::vector<Fish> schoolOfFish;
 	bool info = false;
+	Geometry * spongebob = nullptr;
 
 public:
-	School();
+	School(Geometry * g);
 
 	float boundsRadius = 20.0;
 	bool step = false;
