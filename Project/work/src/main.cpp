@@ -52,7 +52,7 @@ float timer = 0;
 // School of fish
 School *g_school = nullptr;
 bool play = false;
-bool info = true;
+bool info = false;
 
 
 // toggle values
@@ -157,7 +157,7 @@ void draw() {
 	}
 
 	if (g_fishActive) {
-		g_school->update(play);
+		g_school->update(play, info);
 	}
 
 	if (g_causticsActive) {

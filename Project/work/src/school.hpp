@@ -18,6 +18,7 @@ class School {
 private:
 	int fishAmount = 30;
 	std::vector<Fish> schoolOfFish;
+	bool info = false;
 
 public:
 	School();
@@ -25,7 +26,7 @@ public:
 	float boundsRadius = 20.0;
 	bool step = false;
 
-	void update(bool); // run every frame
+	void update(bool, bool); // run every frame
 
 	void renderSchool();
 	void renderBounds();

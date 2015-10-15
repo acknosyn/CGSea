@@ -32,7 +32,7 @@ School::School() {
 	initialisePositions(); // place fish around scene
 }
 
-void School::update(bool play) {
+void School::update(bool play, bool i) {
 	renderSchool();
 
 	if (step) {
@@ -41,16 +41,19 @@ void School::update(bool play) {
 	} else if (play) {
 		moveAllFishToNewPositions();
 	}
+
+	info = i;
 }
 
 void School::renderSchool() {
 	// render every fish
 	for(vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
-    	it->renderFish();
+    	it->renderFish(info);
 	}
 	
-	// render bounds
-	renderBounds();
+	if (info) {
+		renderBounds();
+	}
 }
 
 void School::renderBounds() {
@@ -163,7 +166,7 @@ vec3 School::rule2(Fish *fj) {
 
 	//cout << length(fj->getVelocity()) <<", " << length(c / 10.0) << endl;
 
-	return c / 2.0; // lessen the amount of influence the vector has
+	return c / 10.0; // lessen the amount of influence the vector has
 }
 
 /*
