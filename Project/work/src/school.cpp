@@ -63,6 +63,15 @@ void School::renderBounds() {
 		glScalef(2.5, 1, 2.5);
 		glutWireCube(boundsRadius * 2);
 	} glPopMatrix();
+
+
+	// coral bounds
+	glPushMatrix(); {
+		glColor3f(0.9, 0.2, 0.2);
+		glTranslatef(0.0f,-18.0f,0.0f);
+		glScalef(1.6, 1.4, 1.6);
+		glutWireCube(10);
+	} glPopMatrix();
 }
 
 void School::initialisePositions() {
@@ -109,7 +118,7 @@ void School::moveAllFishToNewPositions() {
 		v4 = boundPosition(fish);
 		v5 = avoidCoral(fish);
 
-		vec3 velocity = fish->getVelocity() + v1 + v2 + v3 + v4; // + v5;
+		vec3 velocity = fish->getVelocity() + v1 + v2 + v3 + v4 + v5;
 		fish->setVelocity(velocity);
 
 		limitVelocity(fish);
@@ -231,37 +240,41 @@ comp308::vec3 School::boundPosition(Fish *f) {
 }
 
 comp308::vec3 School::avoidCoral(Fish *f) {
-
-	float x_min = -boundsRadius * 2;
-	float y_min = -boundsRadius;
-	float z_min = -boundsRadius * 2.5; 
-	float x_max = boundsRadius * 2;
-	float y_max = boundsRadius;
-	float z_max = boundsRadius * 2.5;
-
 	float am = 0.05; // amount
 
 	vec3 v;
-	vec3 pos = f->getPosition();
-	detectCoral(f);
 
-	if (pos.x < x_min) {
-		v.x = am;
-	}
-	else if (pos.x > x_max) {
-		v.x = -am;
-	}
-	if (pos.y < y_min) {
-		v.y = am;
-	}
-	else if (pos.y > y_max) {
-		v.y = -am;
-	}
-	if (pos.z < z_min) {
-		v.z = am;
-	}
-	else if (pos.z > z_max) {
-		v.z = -am;
+	if (detectCoral(f)) {
+		vec3 vel = f->getVelocity();
+
+		//vel /= length(vel); // normalise
+
+		//vel *= am;
+
+		//v = vel;
+
+		vec3 pos = f->getPosition();
+		float f_size = 1.5f;
+
+		vec3 cor = vec3(0.0f,-18.0f,0.0f);
+		vec3 cor_size = vec3(8.0, 7.0, 8.0);
+
+
+		if(pos.x > (cor.x - cor_size.x)) {
+			v.x = -am;
+		} else if (pos.x < (cor.x + cor_size.x)) {
+			v.x = am;
+		}
+
+		if (pos.y < (cor.y + cor_size.y)) {
+			v.y = am;
+		}
+
+		if(pos.z > (cor.z - cor_size.z)) {
+			v.z = -am;
+		} else if (pos.z < (cor.z + cor_size.z)) {
+			v.z = am;
+		}
 	}
 
 	return v;
@@ -281,13 +294,25 @@ void School::limitVelocity(Fish *f) {
 
 bool School::detectCoral(Fish *f) {
 	
-	vec3 position = f->getPosition();
+	vec3 pos = f->getPosition();
+	float f_size = 1.5f;
 
-	glPushMatrix(); {
-		glColor3f(0.9, 0.2, 0.2);
-		glTranslatef(-10.0f,0,-30.0f);
-		glutWireCube(30);
-	} glPopMatrix();
+	vec3 cor = vec3(0.0f,-18.0f,0.0f);
+	vec3 cor_size = vec3(8.0, 7.0, 8.0);
 
-	return false;
+	 //check the X axis
+   if(abs(pos.x - cor.x) < f_size + cor_size.x)
+   {
+      //check the Y axis
+      if(abs(pos.y - cor.y) < f_size + cor_size.y)
+      {
+          //check the Z axis
+          if(abs(pos.z - cor.z) < f_size + cor_size.z)
+          {
+             return true;
+          }
+      }
+   }
+
+   return false;
 }
