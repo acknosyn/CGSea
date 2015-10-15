@@ -46,6 +46,7 @@ Terrain::Terrain() {
 		geoTriangles.push_back(t);
 	}
 	g_geometry = new Geometry(geoPoints, geoTriangles);
+	//saveObj();
 }
 
 Terrain::Terrain(string filename) {
@@ -56,11 +57,11 @@ Terrain::Terrain(string filename) {
 float Terrain::calculateDensity(vec4 coords) {
 	Perlin p;
 	float density = -coords.y;
-	density += p.noise(coords.x, coords.y, coords.z) - 10.0003;
+	density += p.noise(coords.x, coords.y, coords.z) - 25.0003;
 	density += p.noise(coords.x*0.403, coords.y*0.403, coords.z*0.403)*2.5;  
 	density += p.noise(coords.x*0.196, coords.y*0.196, coords.z*0.196)*5.0;  
 	density += p.noise(coords.x*0.101, coords.y*0.101, coords.z*0.101)*10.0;
-	//density += p.noise(coords.x*0.05, coords.y*0.05, coords.z*0.05)*5.0;
+	//density += p.noise(coords.x*0.05, coords.y*0.05, coords.z*0.05)*100.0;
 	return density;
 
 
@@ -72,5 +73,10 @@ float Terrain::calculateDensity(vec4 coords) {
 	//return coords.x*0.2-coords.y - 0.0003;
 }
 
+void Terrain::saveObj() {
+	g_geometry->saveGeo();
+}
+
 void Terrain::renderTerrain() {
-	g_geometry->renderGeometry();}
+	g_geometry->renderGeometry();
+}

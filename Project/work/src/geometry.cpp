@@ -223,6 +223,21 @@ void Geometry::createDisplayListPoly() {
 	glEndList();
 }
 
+void Geometry::saveGeo() {
+	ofstream file("terrain.obj");
+	for(int i=0;i<m_points.size(); ++i) {
+		file << "v " << m_points[i].x << " " << m_points[i].y << " " << m_points[i].z << "\n";
+	}
+	for(int i=0;i<m_normals.size(); ++i) {
+		file << "vn " << m_normals[i].x << " " << m_normals[i].y << " " << m_normals[i].z << "\n";
+	}
+	for(int i=0;i<m_triangles.size(); ++i) {
+		file << "f " << m_triangles[i].v[0].p << "//" << m_triangles[i].v[0].n
+		      << " " << m_triangles[i].v[1].p << "//" << m_triangles[i].v[1].n
+		      << " " << m_triangles[i].v[2].p << "//" << m_triangles[i].v[2].n << "\n";
+	}
+}
+
 void Geometry::renderGeometry() {
 	glShadeModel(GL_SMOOTH);
 	glColor3f(173.0f/255.0f,177.0f/255.0f,157.0f/255.0f);

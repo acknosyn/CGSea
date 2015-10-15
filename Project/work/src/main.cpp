@@ -19,6 +19,7 @@
 
 #include "comp308.hpp"
 #include "terrain.hpp"
+#include "coral.hpp"
 #include "school.hpp"
 #include "shaderLoader.hpp"
 
@@ -37,6 +38,7 @@ GLuint g_mainWindow = 0;
 // Terrain loader and drawer
 //
 Terrain *g_terrain = nullptr;
+Coral *g_coral = nullptr;
 
 // Shader information
 //
@@ -146,7 +148,10 @@ void draw() {
 
 
 	// Render 
-	if (g_terrainActive) g_terrain->renderTerrain();
+	if (g_terrainActive) {
+		g_terrain->renderTerrain();
+		g_coral->renderCoral();
+	}
 
 	if (g_fishActive) {
 		g_school->update(play);
@@ -358,6 +363,8 @@ int main(int argc, char **argv) {
 	} else {
 		g_terrain = new Terrain();
 	}
+	// Creat coral
+	g_coral = new Coral(50.0f,-25.0f,-50.0f,10.0f,6);
 
 	// Fishy stuff
 	g_school = new School();

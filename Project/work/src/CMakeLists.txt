@@ -11,6 +11,7 @@ SET(headers
 	"marchingCubes.hpp"
 	"mcTable.hpp"
 	"perlin.hpp"
+	"coral.hpp"
 	"fish.hpp"
 	"school.hpp"
 	"shaderLoader.hpp"
@@ -24,6 +25,7 @@ SET(sources
 	"geometry.cpp"
 	"marchingCubes.cpp"
 	"perlin.cpp"
+	"coral.cpp"
 	"fish.cpp"
 	"school.cpp"
 )

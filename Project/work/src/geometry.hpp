@@ -48,6 +48,7 @@ public:
 	Geometry(std::vector<comp308::vec3>, std::vector<triangle>);
 	// ~GeometryManager();
 
+	void saveGeo();
 	void renderGeometry();
 	
 };
