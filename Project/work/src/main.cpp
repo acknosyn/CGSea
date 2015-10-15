@@ -78,7 +78,7 @@ float g_yRotation = 0;
 float g_xRotation = 0;
 float g_xPos = 0;
 float g_yPos = 0;
-float g_zPos = -20;
+float g_zPos = -200;
 
 
 // Sets up where and what the light is

@@ -17,12 +17,12 @@
 #include "perlin.hpp"
 
 //boundary values for Marching Cubes
-#define MINX -100.0
-#define MAXX 100.0
-#define MINY -100.0
-#define MAXY 100.0
-#define MINZ -100.0
-#define MAXZ 100.0
+#define MINX -200.0
+#define MAXX 200.0
+#define MINY -200.0
+#define MAXY 200.0
+#define MINZ -200.0
+#define MAXZ 200.0
 
 class Terrain {
 private:
@@ -30,9 +30,9 @@ private:
 
 	//minimal value and number of cells on each axis: passed into Marching Cubes
 	float minValue = 0.0;
-	int nX = 20;
-	int nY = 20;
-	int nZ = 20;
+	int nX = 40;
+	int nY = 40;
+	int nZ = 40;
 	//data points passed to Marching Cubes
 	comp308::vec4 * mcPoints;
 	//data returned by Marching Cubes
