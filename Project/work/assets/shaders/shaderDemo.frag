@@ -14,12 +14,14 @@
 
 #version 120
 
-float VTXSIZE = 0.01f;   // Amplitude
+float wave(float x, float z);
+vec3 gradWave(float x, float z);
 
+float AMPLITUDE = 0.01f;
 float WAVESIZE = 0.01f;  // Frequency  default 10, 0.01
 
 float FACTOR = 1.0f;
-float SPEED = 2.0f; //default 2
+float SPEED = 1.0f; //default 2
 int OCTAVES = 5; //default 5
 
 // Values passed in from the vertex shader
@@ -30,25 +32,71 @@ varying vec3 vPositionW;
 uniform float timer = 1;
 
 void main() {
-	//Now, do wave calculations.
+	//Wave calculations.
+	float x = vPositionW.x+100;
+	float z = vPositionW.z+100;
+	
+	float wave = wave(x,z);
+	
+	vec3 dxdy = gradWave(x,z);
+	
+	vec3 dxdy2 = gradWave(x-80,z-50);
+	
+	//Intercept
+	vec3 lineP = vPositionW;
+	vec3 lineN = dxdy;
+	vec3 planeN = vec3(0,1,0);
+	float planeD = -0.8;
+	
+	float distance = (planeD - lineP.y) / lineN.y;
+	vec3 intercept = lineP + lineN * distance;
+	
+	float prop1 = clamp((dxdy.z/length(dxdy)),0.0,1.0);
+	float prop2 = clamp((dxdy2.z/length(dxdy2)),0.0,1.0);
+	float proportion = clamp((prop1+prop2-0.5)*2/3, 0.0, 1.0);
+
+
+   //Phong shading.
+   vec3 Light = normalize(gl_LightSource[0].position.xyz - vPosition);   
+   vec3 Eye = normalize(-vPosition); // we are in Eye Coordinates, so EyePos is (0,0,0)
+   vec3 Reflect = normalize(-reflect(Light,vNormal));  
+ 
+   //Ambient:  
+   vec4 Iamb = gl_FrontLightProduct[0].ambient;    
+
+   //Diffuse:  
+   vec4 Idiff = gl_FrontLightProduct[0].diffuse * max(dot(vNormal,Light), 0.0);
+   Idiff = clamp(Idiff, 0.0, 1.0);     
+   
+   //Specular:
+   vec4 Ispec = gl_FrontLightProduct[0].specular 
+                * pow(max(dot(Reflect,Eye),0.0),0.3*gl_FrontMaterial.shininess);
+   Ispec = clamp(Ispec, 0.0, 1.0); 
+   
+   //write Color:  
+   gl_FragColor = gl_FrontLightModelProduct.sceneColor + Iamb + Idiff*proportion + Ispec*proportion;
+}
+
+float wave(float x, float z) {
 	float y = 0.0f;
-	float octaves = OCTAVES;
+	int octaves = OCTAVES;
 	float factor = FACTOR;
-	float x = vPositionW.x+40;
-	float z = vPositionW.z+40;
 	float d = sqrt(x * x + z * z);
 	do {
 		y -= factor * cos(timer * SPEED + (1/factor) * x * z * WAVESIZE);
 		factor = factor/2;
 		octaves--;
 	} while (octaves > 0);
-	float wave = 2 * VTXSIZE * d * y;
-	
+	return 2 * AMPLITUDE * d * y;
+}
+
+vec3 gradWave(float x, float z) {
 	//Derivative wave function
+	float d = sqrt(x * x + z * z);
 	float dYx = 0.0f;
 	float dYz = 0.0f;
-	octaves = OCTAVES;
-	factor = FACTOR;
+	int octaves = OCTAVES;
+	float factor = FACTOR;
 
 	do {
 		dYx += d * sin(timer * SPEED + (1/factor) * x * z * WAVESIZE) *
@@ -61,39 +109,5 @@ void main() {
 		octaves--;
 	} while (octaves > 0);
 
-	vec3 dxdy = vec3(-2 * VTXSIZE * dYx, 1,-2 * VTXSIZE * dYz);
-	
-	//Intercept
-	vec3 lineP = vPosition;
-	vec3 lineN = dxdy;
-	vec3 planeN = vec3(0,1,0);
-	float planeD = -0.8;
-	
-	float distance = (planeD - lineP.y) / lineN.y;
-	vec3 intercept = lineP + lineN * distance;
-	
-	
-	float proportion=lineN.z/length(lineN)/0.8; //the 20 should be length(lineN.z)
-	proportion = clamp(proportion, 0.0, 1.0);
-
-
-   //Phong shading.
-   vec3 L = normalize(gl_LightSource[0].position.xyz - vPosition);   
-   vec3 E = normalize(-vPosition); // we are in Eye Coordinates, so EyePos is (0,0,0)  
-   vec3 R = normalize(-reflect(L,vNormal));  
- 
-   //calculate Ambient Term:  
-   vec4 Iamb = gl_FrontLightProduct[0].ambient;    
-
-   //calculate Diffuse Term:  
-   vec4 Idiff = gl_FrontLightProduct[0].diffuse * max(dot(vNormal,L), 0.0);
-   Idiff = clamp(Idiff, 0.0, 1.0);     
-   
-   // calculate Specular Term:
-   vec4 Ispec = gl_FrontLightProduct[0].specular 
-                * pow(max(dot(R,E),0.0),0.3*gl_FrontMaterial.shininess);
-   Ispec = clamp(Ispec, 0.0, 1.0); 
-	
-	// write Total Color:  
-	gl_FragColor = gl_FrontLightModelProduct.sceneColor + Iamb + Idiff*proportion + Ispec*proportion;
+	return vec3(-2 * AMPLITUDE * dYx, 1,-2 * AMPLITUDE * dYz);
 }
