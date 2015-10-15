@@ -62,6 +62,23 @@ float Terrain::calculateDensity(vec4 coords) {
 	density += p.noise(coords.x*0.196, coords.y*0.196, coords.z*0.196)*5.0;  
 	density += p.noise(coords.x*0.101, coords.y*0.101, coords.z*0.101)*10.0;
 	//density += p.noise(coords.x*0.05, coords.y*0.05, coords.z*0.05)*100.0;
+// 	if((coords.x+50)/40>-pi()/2 && (coords.x+50)/40 < pi()/2
+// 	  && (coords.z+50)/10>-pi()/2 && (coords.z+50)/10 < pi()/2
+// 	) {
+// 		density += cos((coords.x+50)/40)*7*cos((coords.z+50)/10)*5;
+// 	}
+	if(coords.z < -160 && coords.z > -210) {
+		density += -(coords.z + 160)+p.noise(coords.x*0.101, coords.y*0.101, coords.z*0.101)*10.0;
+	}
+	if(coords.z > 160 && coords.z < 210) {
+		density += (coords.z - 160)+p.noise(coords.x*0.101, coords.y*0.101, coords.z*0.101)*10.0;
+	}
+	if(coords.x < -160 && coords.x > -210 && coords.z < 190 && coords.z > -190) {
+		density += -(coords.x + 160)+p.noise(coords.x*0.101, coords.y*0.101, coords.z*0.101)*10.0;
+	}
+	if(coords.x > 160 && coords.x < 210 && coords.z < 190 && coords.z > -190) {
+		density += (coords.x - 160)+p.noise(coords.x*0.101, coords.y*0.101, coords.z*0.101)*10.0;
+	}
 	return density;
 
 
