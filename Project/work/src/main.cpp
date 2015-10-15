@@ -56,9 +56,9 @@ bool info = false;
 
 
 // toggle values
-bool g_terrainActive = true;
-bool g_fishActive = true;
-bool g_causticsActive = true;
+bool g_terrainActive = false;
+bool g_fishActive = false;
+bool g_causticsActive = false;
 
 
 // Projection values
@@ -80,7 +80,7 @@ float g_yRotation = 0;
 float g_xRotation = 0;
 float g_xPos = 0;
 float g_yPos = 0;
-float g_zPos = -200;
+float g_zPos = -170;
 
 
 // Sets up where and what the light is
