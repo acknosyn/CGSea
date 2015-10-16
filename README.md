@@ -18,6 +18,8 @@ RMB - Rotates at center of scene (Right Mouse Button)
 Scroll - Moves forward/backward
 #####Toggles
 T - Toggles terrain on/off  
+Y - Toggles the corals on/off  
+U - Toggles fog on/off  
 F - Toggles fish on/off  
 C - Toggles caustics on/off  
 P - Pauses/plays fish simulation  

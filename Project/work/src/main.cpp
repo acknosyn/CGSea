@@ -41,7 +41,7 @@ GLuint g_mainWindow = 0;
 Terrain *g_terrain = nullptr;
 Coral *g_coral1 = nullptr;
 Coral *g_coral2 = nullptr;
-Coral *g_coral3 = nullptr;
+// Coral *g_coral3 = nullptr;
 // Coral *g_coral4 = nullptr;
 // Coral *g_coral5 = nullptr;
 // Coral *g_coral6 = nullptr;
@@ -65,6 +65,7 @@ bool info = false;
 // toggle values
 bool g_terrainActive = false;
 bool g_coralActive = false;
+bool g_fogActive = false;
 bool g_fishActive = false;
 bool g_causticsActive = false;
 
@@ -192,6 +193,11 @@ void draw() {
 	glEnable(GL_NORMALIZE);
 	glEnable(GL_COLOR_MATERIAL);
 
+	if(g_fogActive) {
+		initFog();
+	}else {
+		glDisable(GL_FOG);
+	}
 
 	// Set the current material (for all objects) to red
 	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE); 
@@ -205,7 +211,7 @@ void draw() {
 	if(g_coralActive) {
 		g_coral1->renderCoral();
 		g_coral2->renderCoral();
-		g_coral3->renderCoral();
+// 		g_coral3->renderCoral();
 // 		g_coral4->renderCoral();
 // 		g_coral5->renderCoral();
 // 		g_coral6->renderCoral();
@@ -303,6 +309,9 @@ void keyboardCallback(unsigned char key, int x, int y) {
 
 		case 'y': //toggle coral
 			g_coralActive = !g_coralActive;
+			break;
+		case 'u': //toggle fog
+			g_fogActive = !g_fogActive;
 			break;
 
 		case 'f': //toggle fish
@@ -441,8 +450,8 @@ int main(int argc, char **argv) {
 	g_coral1->changeColour(217.0f, 180.0f, 214.0f);
 	g_coral2 = new Coral(-25.0f,-25.0f,-60.0f,30.0f, 1.5f,6,2);
 	g_coral2->changeColour(224.0f, 19.0f, 49.0f);
-	g_coral3 = new Coral(50.0f,-28.0f,-80.0f,10.0f, 1.5f,5,3);
-	g_coral3->changeColour(213.0f, 198.0f, 198.0f);
+// 	g_coral3 = new Coral(50.0f,-28.0f,-80.0f,10.0f, 1.5f,5,3);
+// 	g_coral3->changeColour(213.0f, 198.0f, 198.0f);
 // 	g_coral4 = new Coral(-50.0f,-25.0f,-80.0f,2.0f, 0.25f,7,4);
 // 	g_coral4->changeColour(188.0f, 214.0f, 198.0f);
 // 	g_coral5 = new Coral(-58.0f,-25.0f,-80.0f,2.0f, 0.25f,7,4);
