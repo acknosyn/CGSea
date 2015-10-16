@@ -42,6 +42,8 @@ void Fish::renderFish(bool info, Geometry * geometry, bool isSpongebob) {
 			glColor3f(0.9, 0.9, 0.8);
 
 			geometry->renderGeometry();
+
+			glDisable(GL_TEXTURE_2D);
 		} glPopMatrix();
 	} else {
 		glPushMatrix(); {
@@ -67,7 +69,7 @@ void Fish::renderFish(bool info, Geometry * geometry, bool isSpongebob) {
 			}
 			
 			// render geometry
-			glColor3f(0.2, 0.2, 0.6); // light green
+			glColor3f(0.9, 0.9, 0.9); // light grey
 
 			glScalef(0.2, 1, 1);
 			float tailLength = fishLength * (1.0f/3.0f);

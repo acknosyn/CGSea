@@ -132,7 +132,7 @@ void initFog() {
 	glFogfv(GL_FOG_COLOR,FogCol);     // Set the fog color
 	glFogi(GL_FOG_MODE, GL_LINEAR); // Note the 'i' after glFog - the GL_LINEAR constant is an integer.
 	glFogf(GL_FOG_START, 10.f);
-	glFogf(GL_FOG_END, 200.f);
+	glFogf(GL_FOG_END, 500.f);
 }
 
 void enableTextureSpongebob() {
@@ -221,7 +221,6 @@ void draw() {
 	if (g_fishActive) {
 		enableTextureSpongebob();
 		g_school->update(play, info);
-		glDisable(GL_TEXTURE_2D);
 	}
 
 	if (g_causticsActive) {
