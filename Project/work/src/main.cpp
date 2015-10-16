@@ -125,11 +125,20 @@ void initTextureSpongebob() {
 	gluBuild2DMipmaps(GL_TEXTURE_2D, 3, tex.w, tex.h, tex.glFormat(), GL_UNSIGNED_BYTE, tex.dataPointer());
 }
 
+void initFog() {
+	glEnable(GL_FOG);
+	float FogCol[3]={0.04705f,0.25098f,0.34902f}; // Define a nice light grey
+	glFogfv(GL_FOG_COLOR,FogCol);     // Set the fog color
+	glFogi(GL_FOG_MODE, GL_LINEAR); // Note the 'i' after glFog - the GL_LINEAR constant is an integer.
+	glFogf(GL_FOG_START, 10.f);
+	glFogf(GL_FOG_END, 200.f);
+}
+
 void enableTextureSpongebob() {
 	// Enable Drawing texures
 	glEnable(GL_TEXTURE_2D);
 	
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 	// Set the location for binding the texture
 	glActiveTexture(GL_TEXTURE0);
 	// Bind the texture
@@ -462,6 +471,7 @@ int main(int argc, char **argv) {
 	initLight();
 	initShader();
 	initTextureSpongebob();
+	initFog();
 
 	// Loop required by OpenGL
 	// This will not return until we tell OpenGL to finish

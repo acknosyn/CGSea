@@ -203,18 +203,30 @@ void Geometry::createDisplayListPoly() {
 	      vertex vert = m_triangles[i].v[0];
 	      vec3 norm = m_normals[vert.n];
 	      glNormal3f(norm.x, norm.y, norm.z);
+	      if (m_uvs.size() > 1) {
+		    vec2 tex = m_uvs[vert.t];
+		    glTexCoord2f(tex.x, tex.y);
+	      }
 	      vec3 points = m_points[vert.p];
 	      glVertex3f(points.x, points.y, points.z);
 	      
 	      vert = m_triangles[i].v[1];
 	      norm = m_normals[vert.n];
 	      glNormal3f(norm.x, norm.y, norm.z);
+	      if (m_uvs.size() > 1) {
+		    vec2 tex = m_uvs[vert.t];
+		    glTexCoord2f(tex.x, tex.y);
+	      }
 	      points = m_points[vert.p];
 	      glVertex3f(points.x, points.y, points.z);
 	      
 	      vert = m_triangles[i].v[2];
 	      norm = m_normals[vert.n];
 	      glNormal3f(norm.x, norm.y, norm.z);
+	      if (m_uvs.size() > 1) {
+		    vec2 tex = m_uvs[vert.t];
+		    glTexCoord2f(tex.x, tex.y);
+	      }
 	      points = m_points[vert.p];
 	      glVertex3f(points.x, points.y, points.z);
 	      
