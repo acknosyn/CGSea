@@ -205,7 +205,7 @@ void Geometry::createDisplayListPoly() {
 	      glNormal3f(norm.x, norm.y, norm.z);
 	      if (m_uvs.size() > 1) {
 		    vec2 tex = m_uvs[vert.t];
-		    glTexCoord2f(tex.x, tex.y);
+		    glTexCoord2f(tex.x, -tex.y);
 	      }
 	      vec3 points = m_points[vert.p];
 	      glVertex3f(points.x, points.y, points.z);
@@ -215,7 +215,7 @@ void Geometry::createDisplayListPoly() {
 	      glNormal3f(norm.x, norm.y, norm.z);
 	      if (m_uvs.size() > 1) {
 		    vec2 tex = m_uvs[vert.t];
-		    glTexCoord2f(tex.x, tex.y);
+		    glTexCoord2f(tex.x, -tex.y);
 	      }
 	      points = m_points[vert.p];
 	      glVertex3f(points.x, points.y, points.z);
@@ -225,7 +225,7 @@ void Geometry::createDisplayListPoly() {
 	      glNormal3f(norm.x, norm.y, norm.z);
 	      if (m_uvs.size() > 1) {
 		    vec2 tex = m_uvs[vert.t];
-		    glTexCoord2f(tex.x, tex.y);
+		    glTexCoord2f(tex.x, -tex.y);
 	      }
 	      points = m_points[vert.p];
 	      glVertex3f(points.x, points.y, points.z);
