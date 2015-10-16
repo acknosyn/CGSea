@@ -23,7 +23,7 @@ public:
 
 	float fishLength = 1.5;
 
-	void renderFish(bool, Geometry *);
+	void renderFish(bool, Geometry *, bool);
 
 	comp308::vec3 getPosition();
 	comp308::vec3 getVelocity();

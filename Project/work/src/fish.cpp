@@ -23,59 +23,63 @@ Fish::Fish() {
 	velocity = vec3(0, 0, 0);
 }
 
-void Fish::renderFish(bool info, Geometry * geometry) {
+void Fish::renderFish(bool info, Geometry * geometry, bool isSpongebob) {
 
-	glPushMatrix(); {
-		// translate to position of fish
-		glTranslatef(position.x, position.y, position.z);
+	if (isSpongebob) {
+		glPushMatrix(); {
+			// translate to position of fish
+			glTranslatef(position.x, position.y, position.z);
+			// orient fish in direction of velocity
+			float angle = degrees(acos(dot(vec3::k(), normalize(velocity))));
+			vec3 axis = cross(vec3::k(), normalize(velocity));
+			axis = normalize(axis);
 
-		// orient fish in direction of velocity
-		float angle = degrees(acos(dot(vec3::k(), normalize(velocity))));
-		vec3 axis = cross(vec3::k(), normalize(velocity));
-		axis = normalize(axis);
+			glRotatef(angle, axis.x, axis.y, axis.z);
+			glRotatef(90, 1, 0, 0);
 
-		glRotatef(angle, axis.x, axis.y, axis.z);
+			glScalef(0.15, 0.15, 0.15);
 
-		if (info) {
-			// velocity vector
-			glPushMatrix(); {
-				glColor3f(0.9, 0.3, 0.3); // light red
+			glColor3f(0.9, 0.9, 0.8);
 
-				GLUquadricObj *quadObj = gluNewQuadric();
-				gluCylinder(quadObj, 0.03, 0.03, length(velocity) + fishLength, 10, 10);
-			} 
-			glPopMatrix();
+			geometry->renderGeometry();
+		} glPopMatrix();
+	} else {
+		glPushMatrix(); {
+			// translate to position of fish
+			glTranslatef(position.x, position.y, position.z);
+
+			// orient fish in direction of velocity
+			float angle = degrees(acos(dot(vec3::k(), normalize(velocity))));
+			vec3 axis = cross(vec3::k(), normalize(velocity));
+			axis = normalize(axis);
+
+			glRotatef(angle, axis.x, axis.y, axis.z);
+
+			if (info) {
+				// velocity vector
+				glPushMatrix(); {
+					glColor3f(0.9, 0.3, 0.3); // light red
+
+					GLUquadricObj *quadObj = gluNewQuadric();
+					gluCylinder(quadObj, 0.03, 0.03, length(velocity) + fishLength, 10, 10);
+				} 
+				glPopMatrix();
+			}
+			
+			// render geometry
+			glColor3f(0.2, 0.2, 0.6); // light green
+
+			glScalef(0.2, 1, 1);
+			float tailLength = fishLength * (1.0f/3.0f);
+			glutSolidCone(0.3, tailLength, 6, 5);
+
+			glScalef(1, 0.5, 1);
+			float bodyLength = fishLength * (2.0f / 3.0f);
+			glTranslatef(0, 0, tailLength + (bodyLength / 2));
+			glutSolidSphere(bodyLength/2, 10, 10);
 		}
-		
-		// render geometry
-		glColor3f(0.2, 0.2, 0.6); // light green
-
-		glScalef(0.2, 1, 1);
-		float tailLength = fishLength * (1.0f/3.0f);
-		glutSolidCone(0.3, tailLength, 6, 5);
-
-		glScalef(1, 0.5, 1);
-		float bodyLength = fishLength * (2.0f / 3.0f);
-		glTranslatef(0, 0, tailLength + (bodyLength / 2));
-		glutSolidSphere(bodyLength/2, 10, 10);
+		glPopMatrix();
 	}
-	glPopMatrix();
-
-	glPushMatrix(); {
-		// translate to position of fish
-		glTranslatef(position.x, position.y, position.z);
-		// orient fish in direction of velocity
-		float angle = degrees(acos(dot(vec3::k(), normalize(velocity))));
-		vec3 axis = cross(vec3::k(), normalize(velocity));
-		axis = normalize(axis);
-
-		glRotatef(angle, axis.x, axis.y, axis.z);
-		glRotatef(90, 1, 0, 0);
-
-		glScalef(0.15, 0.15, 0.15);
-
-		geometry->renderGeometry();
-	} glPopMatrix();
 }
 
 vec3 Fish::getPosition() {

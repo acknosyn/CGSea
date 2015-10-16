@@ -50,7 +50,11 @@ void School::update(bool play, bool i) {
 void School::renderSchool() {
 	// render every fish
 	for(vector<Fish>::iterator it = schoolOfFish.begin(); it != schoolOfFish.end(); ++it) {
-    	it->renderFish(info, spongebob);
+		if (it == schoolOfFish.begin()) {
+			it->renderFish(info, spongebob, true);
+		} else {
+			it->renderFish(info, spongebob, false);
+		}
 	}
 	
 	if (info) {
