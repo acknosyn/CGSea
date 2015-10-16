@@ -178,7 +178,7 @@ vec3 School::rule2(Fish *fj) {
 
 	//cout << length(fj->getVelocity()) <<", " << length(c / 10.0) << endl;
 
-	return c / 10.0; // lessen the amount of influence the vector has
+	return c / 50.0; // lessen the amount of influence the vector has
 }
 
 /*

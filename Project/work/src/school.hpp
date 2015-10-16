@@ -17,7 +17,7 @@
 
 class School {
 private:
-	int fishAmount = 30;
+	int fishAmount = 60;
 	std::vector<Fish> schoolOfFish;
 	bool info = false;
 	Geometry * spongebob = nullptr;
