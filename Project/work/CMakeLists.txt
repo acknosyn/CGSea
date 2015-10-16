@@ -56,6 +56,7 @@ add_definitions(-DFREEGLUT_LIB_PRAGMAS=0)
 # Include GLEW Subproject
 #########################################################
 add_subdirectory("${PROJECT_SOURCE_DIR}/ext/glew-1.10.0")
+add_subdirectory("${PROJECT_SOURCE_DIR}/ext/stb")
 
 #########################################################
 # Set Compiler Flags

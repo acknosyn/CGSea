@@ -22,6 +22,7 @@
 #include "coral.hpp"
 #include "school.hpp"
 #include "shaderLoader.hpp"
+#include "imageLoader.hpp"
 
 using namespace std;
 using namespace comp308;
@@ -56,6 +57,7 @@ float timer = 0;
 //
 // School of fish
 School *g_school = nullptr;
+GLuint g_spongebobTex = 0;
 bool play = false;
 bool info = false;
 
@@ -103,6 +105,38 @@ void initLight() {
 	
 	
 	glEnable(GL_LIGHT0);
+}
+
+void initTextureSpongebob() {
+	image tex("work/assets/SpongeBob/spongebob_tx.png");
+
+	glActiveTexture(GL_TEXTURE0); // Use slot 0, need to use GL_TEXTURE1 ... etc if using more than one texture PER OBJECT
+	glGenTextures(1, &g_spongebobTex); // Generate texture ID
+	glBindTexture(GL_TEXTURE_2D, g_spongebobTex); // Bind it as a 2D texture
+	
+	// Setup sampling strategies
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	// Finnaly, actually fill the data into our texture
+	gluBuild2DMipmaps(GL_TEXTURE_2D, 3, tex.w, tex.h, tex.glFormat(), GL_UNSIGNED_BYTE, tex.dataPointer());
+}
+
+void enableTextureSpongebob() {
+	// Enable Drawing texures
+	glEnable(GL_TEXTURE_2D);
+	
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	// Set the location for binding the texture
+	glActiveTexture(GL_TEXTURE0);
+	// Bind the texture
+	glBindTexture(GL_TEXTURE_2D, g_spongebobTex);
+
+	// Set our sampler (texture0) to use GL_TEXTURE0 as the source
+	//glUniform1i(glGetUniformLocation(g_shader, "texture0"), 0);
 }
 
 
@@ -170,7 +204,9 @@ void draw() {
 	}
 
 	if (g_fishActive) {
+		enableTextureSpongebob();
 		g_school->update(play, info);
+		glDisable(GL_TEXTURE_2D);
 	}
 
 	if (g_causticsActive) {
@@ -425,7 +461,7 @@ int main(int argc, char **argv) {
 	// Create a light on the camera
 	initLight();
 	initShader();
-
+	initTextureSpongebob();
 
 	// Loop required by OpenGL
 	// This will not return until we tell OpenGL to finish

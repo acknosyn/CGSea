@@ -74,6 +74,8 @@ void Fish::renderFish(bool info, Geometry * geometry) {
 
 		glScalef(0.15, 0.15, 0.15);
 
+		glEnable(GL_TEXTURE_2D);
+
 		geometry->renderGeometry();
 	} glPopMatrix();
 }

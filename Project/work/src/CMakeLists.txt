@@ -15,6 +15,7 @@ SET(headers
 	"fish.hpp"
 	"school.hpp"
 	"shaderLoader.hpp"
+	"imageLoader.hpp"
 )
 
 
@@ -34,3 +35,4 @@ SET(sources
 # You do not need to touch this
 add_executable(${COMP308_ASSIGNMENT} ${headers} ${sources})
 target_link_libraries(${COMP308_ASSIGNMENT} PRIVATE GLUT::GLUT glew)
+target_link_libraries(${COMP308_ASSIGNMENT} PRIVATE stb)
