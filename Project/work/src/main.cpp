@@ -463,6 +463,7 @@ int main(int argc, char **argv) {
 	// Fishy stuff
 	Geometry * spongebob = new Geometry("work/assets/SpongeBob/spongebob.obj");
 	g_school = new School(spongebob);
+	// SpongeBob model retrieved from http://www.models-resource.com/pc_computer/spongebobsquarepants3dobstacleodyssey/model/8478/
 
 	// Register functions for callback
 	glutDisplayFunc(draw);
